@@ -16,6 +16,7 @@
     <script src="js/app.js"></script>
     <script src="js/services/card.js"></script>
     <script src="js/services/deck.js"></script>
+    <script src="js/services/player.js"></script>
 
 </head>
 <body ng-controller="ngGame">
@@ -28,20 +29,23 @@
 
         <div class="row center">
             <div>
+                <span>Dealer Sum of Cards: {{DealerHandSum}}</span>
+            </div>
+            <div>
                 <span>Dealer Cards: <span ng-repeat="card in dealerCards">{{card}}</span></span>
             </div>
         </div>
 
         <div class="row center">
             <div class="col l4">
-                <span>Sum of Cards: {{getPlayerSumOfCards()}}</span>
+                <span>Player Sum of Cards: {{player.handSum}}</span>
             </div>
             <div class="col l4">
-                <span>Cards: <span ng-repeat="card in playerCards">{{card}}</span></span>
+                <span>Cards: <span ng-repeat="card in player.hand">{{card}}</span></span>
             </div>
             <div class="col l4">
-                <span>Wins: {{playerWins}}</span>
-                <span>Loses: {{playerLoses}}</span>
+                <span>Wins: {{player.wins}}</span>
+                <span>Loses: {{player.loses}}</span>
             </div>
         </div>
 
