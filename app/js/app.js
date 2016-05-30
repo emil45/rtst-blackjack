@@ -31,10 +31,10 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
     };
 
     $scope.getPlayerSumOfCards = function () {
-        return $scope.SumArrayOfCards($scope.player.hand);
+        return $scope.sumArrayOfCards($scope.player.hand);
     };
 
-    $scope.SumArrayOfCards = function (arrayOfCards)
+    $scope.sumArrayOfCards = function (arrayOfCards)
     {
         var sumOfCards = 0;
         var acesCount = 0;
@@ -59,11 +59,37 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
         return sumOfCards
     }
     $scope.getDealerSumOfCards = function () {
-        return $scope.SumArrayOfCards($scope.dealerCards);
+        return $scope.sumArrayOfCards($scope.dealerCards);
     };
     $scope.playerLost = function () {
         $scope.player.loses++;
     };
+
+    $scope.getAdvice = function () {
+        if($scope.player.numberOfCards() ==2)
+        {
+           if($scope.player.hand[0] == $scope.player.hand[1])
+           {
+               return $scope.player.hand[0] + $scope.getDealerSumOfCards()
+           }
+        }
+        if(!isArrayContainAces($scope.player.hand))
+        {
+            return $scope.getPlayerSumOfCards() +$scope.getDealerSumOfCards();
+        }
+        //array contain Aces, Checking if hand is soft or hard
+        //TODO: add check if hand is soft or hard and act
+
+
+    };
+    function isArrayContainAces(array) {
+        angular.forEach(array, function (card) {
+            if (card.rank == 1)
+            {return true}
+        });
+        return false;
+
+    }
 
     $scope.$watchCollection('player.hand', function (newValue)
     {
