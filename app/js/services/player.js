@@ -12,7 +12,7 @@ BlackJack.factory('Player', function () {
         this.hand.push(newCard);
     };
 
-    Player.prototype.numberOfCards = function (newCard) {
+    Player.prototype.numberOfCards = function () {
         return this.hand.length;
     };
     

@@ -27,7 +27,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
 
     $scope.hitCardForPlayer = function () {
         var anotherCard = $scope.deck.popCard();
-        $scope.player.hand.push(anotherCard);
+        $scope.player.takeCard(anotherCard);
     };
 
     $scope.getPlayerSumOfCards = function () {
@@ -61,7 +61,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
     $scope.getDealerSumOfCards = function () {
         return $scope.SumArrayOfCards($scope.dealerCards);
     };
-    $scope.PlayerLost = function () {
+    $scope.playerLost = function () {
         $scope.player.loses++;
     };
 
@@ -77,7 +77,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
     {
         if(newSum>21)
         {
-            $scope.PlayerLost();
+            $scope.playerLost();
         }
     });
 
