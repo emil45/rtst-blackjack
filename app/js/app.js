@@ -42,7 +42,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
             if(card.rank ==1)
             {
                 acesCount++;
-                sumOfCards+=11;
+                sumOfCards+=1;
             }
             else if(card.rank >=10)
             {
@@ -51,13 +51,12 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
             else
             {sumOfCards += card.rank;}
         });
-        while(sumOfCards>21 && acesCount>0)
+        if(sumOfCards<12&& acesCount>0)
         {
-            sumOfCards-=10;
-            acesCount--;
+            sumOfCards+=10;
         }
         return sumOfCards
-    }
+    };
     $scope.getDealerSumOfCards = function () {
         return $scope.sumArrayOfCards($scope.dealerCards);
     };
@@ -73,27 +72,35 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
                return $scope.player.hand[0] + $scope.getDealerSumOfCards()
            }
         }
-        if(!isArrayContainAces($scope.player.hand))
+        if(isHandSoft($scope.player.hand))
         {
-            return $scope.getPlayerSumOfCards() +$scope.getDealerSumOfCards();
+            return $scope.getPlayerSumOfCards() +$scope.getDealerSumOfCards(); //SOFT
         }
-        //array contain Aces, Checking if hand is soft or hard
-        //TODO: add check if hand is soft or hard and act
-
-
+        else //hand is Hard
+        {
+            return $scope.getPlayerSumOfCards() +$scope.getDealerSumOfCards(); //HARD
+        }
     };
-    function isArrayContainAces(array) {
+    function isHandSoft(array) {
+        var sum=0;
+        var foundAce =false;
         angular.forEach(array, function (card) {
+            if(card.rank>=10){sum+= 10}
+            else{sum+= card.rank}
             if (card.rank == 1)
-            {return true}
+            {foundAce = true}
         });
+        if(foundAce ==true && sum<12)
+        {
+            return true;
+        }
         return false;
-
     }
 
     $scope.$watchCollection('player.hand', function (newValue)
     {
         $scope.player.handSum = $scope.getPlayerSumOfCards(newValue);
+        console.log($scope.player.hand);
     });
     $scope.$watchCollection('dealerCards', function (newValue)
     {
