@@ -38,6 +38,7 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
     var pairTable = [
+        [split, split, split, split, split, split, split, split, split, split],
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
@@ -46,7 +47,6 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [split, split, split, split, split, split, hit, hit, hit, hit],
         [split, split, split, split, split, split, split, split, split, split],
         [split, split, split, split, split, stand, split, split, stand, stand],
-        [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
-        [split, split, split, split, split, split, split, split, split, split]];
+        [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
 });
