@@ -3,18 +3,21 @@ BlackJack.factory('Deck', function (Card) {
     var suits = [ 'heart', 'diamond', 'spade', 'club'];
     var ranks = [1, 2 ,3 , 4 , 5 ,6 ,7 , 8 ,9 ,10, 11 ,12 ,13];
 
-    var Deck  = function () {
-        this.deck = generateDeck();
+    var Deck  = function (numOfDecks) {
+        this.deck = generateDeck(numOfDecks);
     };
 
-    function generateDeck () {
+    function generateDeck (numOfDecks) {
+        if (numOfDecks == undefined){numOfDecks=1}
         var newDeck = [];
-        angular.forEach(ranks, function (rank) {
-            angular.forEach(suits, function (suit) {
-                var card = new Card(rank, suit);
-                newDeck.push(card);
-            })
-        });
+        for(var i=0;i<numOfDecks;i++) {
+            angular.forEach(ranks, function (rank) {
+                angular.forEach(suits, function (suit) {
+                    var card = new Card(rank, suit);
+                    newDeck.push(card);
+                })
+            });
+        }
         return newDeck;
     }
 

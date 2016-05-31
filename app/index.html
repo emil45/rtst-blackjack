@@ -26,7 +26,7 @@
     <div class="container main">
         <div class="row center">
             <div>
-                <span>Dealer Sum of Cards: {{DealerHandSum}}</span>
+                <span>Dealer Sum of Cards: {{dealerHandSum}}</span>
             </div>
             <div>
                 <span>Dealer Cards: <span ng-repeat="card in dealerCards">{{card}}</span></span>
@@ -71,7 +71,7 @@
                 <span class="start-game-text">Split</span>
             </div>
             <div class="start-game-buttons">
-                <a class="btn-floating tooltipped btn-large waves-effect waves-light yellow darken-3" data-position="right" data-delay="50" data-tooltip="Tooltip"><i class="material-icons">star</i></a>
+                <a class="btn-floating tooltipped btn-large waves-effect waves-light yellow darken-3" data-position="right" data-delay="50" data-tooltip={{getAdvice()}}><i class="material-icons">star</i></a>
                 <span class="start-game-text">Advice?</span>
             </div>
         </div>
