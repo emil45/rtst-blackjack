@@ -8,11 +8,14 @@
     <link rel="stylesheet" href="css/materialize/material-icons.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/cards.css">
 
     <!-- JavaScript -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <script src="js/materialize/materialize.min.js"></script>
     <script src="js/angular-1.5.6/angular.min.js"></script>
+    <script src="js/angular-1.5.6/angular-sanitize.min.js"></script>
+
 
     <!-- JavaScript Custom -->
     <script src="js/app.js"></script>
@@ -22,8 +25,30 @@
     <script src="js/services/strategy-tables/surrenderAgainst2to10.js"></script>
 
 </head>
-<body ng-controller="ngGame" class="">
-    <div class="container main">
+<body ng-controller="ngGame" style="">
+    <div class="playingCards faceImages rotateHand">
+        <ul class="hand">
+            <li>
+                <a class="card rank-8 hearts">
+                    <span class="rank">8</span>
+                    <span class="suit">♥</span>
+                </a>
+            </li>
+            <li>
+                <a class="card rank-q hearts">
+                    <span class="rank">Q</span>
+                    <span class="suit">♥</span>
+                </a>
+            </li>
+            <li>
+                <a class="card rank-k spades">
+                    <span class="rank">K</span>
+                    <span class="suit">♠</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div class="container centered">
         <div class="row center">
             <div>
                 <span>Dealer Sum of Cards: {{dealerHandSum}}</span>
@@ -33,7 +58,7 @@
             </div>
         </div>
 
-        <div class="row center" style="margin-top: 57%">
+        <div class="row center">
             <div class="col l4">
                 <span>Player Sum of Cards: {{player.handSum}}</span>
             </div>
@@ -46,12 +71,12 @@
             </div>
         </div>
         <div>
-            <div id="deal" class="row center animated zoomInUp" ng-hide="startGame">
+            <div id="deal" class="row center animated zoomInDown" ng-hide="startGame">
                 <a class="waves-effet waves-light light-green lighten-1 btn" ng-click="dealCards()">Deal</a>
             </div>
             <div id="gameIcons" class="row center animated flipInX" ng-show="startGame">
             <div class="start-game-buttons">
-                <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">block</i></a>
+                <a class="btn-floating btn-large waves-effect waves-light red" ng-click="surrender()"><i class="material-icons">block</i></a>
                 <span class="start-game-text">Surrender</span>
             </div>
             <div class="start-game-buttons">
@@ -77,6 +102,7 @@
         </div>
         </div>
     </div>
+    <div id="wood"> </div>
 
 </body>
 </html>

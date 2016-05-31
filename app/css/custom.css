@@ -3,13 +3,14 @@ html {
     background-repeat: no-repeat;
 }
 
+#wood {
+    background: url("../img/wood.png");
+    background-repeat: no-repeat;
+}
+
 .start-game-buttons {
     display: inline-block; !important;
     margin-right: 5px;
-}
-
-.main {
-
 }
 
 .start-game-text {
@@ -25,4 +26,16 @@ html {
 #gameIcons {
     animation-duration: 1.5s;
     -vendor-animation-duration: 2s;
+}
+
+.container {
+    width: 85%; !important;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
 }
