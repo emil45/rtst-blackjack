@@ -3,16 +3,18 @@ var BlackJack = angular.module('ngBlackJack', []);
 BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAgainst2to10) {
     
     $scope.startGame = false;
-    $scope.dealerCards = [];
-    $scope.DealerHandSum=0;
+    $scope.numOfDecks = 4;
 
-    var strategyT = new surrenderAgainst2to10();
+    var strategyTables = new surrenderAgainst2to10();
     $scope.player = new Player();
 
-    
     $scope.dealCards = function () {
-        $scope.deck = new Deck();
+        $scope.deck = new Deck($scope.numOfDecks);
         $scope.deck.shuffle();
+
+        $scope.dealerCards = [];
+        $scope.dealerHandSum=0;
+        $scope.player.resetHand();
 
         var firstPlayerCard = $scope.deck.popCard();
         var secondPlayerCard = $scope.deck.popCard();
@@ -31,11 +33,53 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         $scope.player.takeCard(anotherCard);
     };
 
-    $scope.getPlayerSumOfCards = function () {
-        return $scope.sumArrayOfCards($scope.player.hand);
+    $scope.getAdvice = function () {
+        if($scope.startGame ==false){return;}
+        if($scope.player.handSum>21)
+            return "lost";
+        if($scope.player.numberOfCards() ==2)
+        {
+           if($scope.player.hand[0].rank == $scope.player.hand[1].rank)
+           {
+               return strategyTables.pairTable[$scope.player.hand[0].rank-1][$scope.dealerHandSum-1];
+           }
+        }
+        if($scope.player.isHandSoft($scope.player.hand))
+        {
+            return strategyTables.softTable[$scope.player.handSum-13][$scope.dealerHandSum-1];
+        }
+        else //hand is Hard
+        {
+            return strategyTables.hardTable[$scope.player.handSum - 5][$scope.dealerHandSum-1];
+        }
     };
 
-    $scope.sumArrayOfCards = function (arrayOfCards)
+    $scope.$watchCollection('player.hand', function (newValue)
+    {
+        $scope.player.handSum = getPlayerSumOfCards(newValue);
+    });
+    $scope.$watchCollection('dealerCards', function (newValue)
+    {
+        $scope.dealerHandSum = getDealerSumOfCards(newValue);
+    });
+    $scope.$watch('player.handSum',function(newSum)
+    {
+        if(newSum>21)
+        {
+            $scope.player.lostHand();
+            $scope.startGame=false;
+        }
+    });
+
+
+
+    function getPlayerSumOfCards() {
+        return sumArrayOfCards($scope.player.hand);
+    };
+    function getDealerSumOfCards() {
+        return sumArrayOfCards($scope.dealerCards);
+    };
+    function sumArrayOfCards(arrayOfCards)
     {
         var sumOfCards = 0;
         var acesCount = 0;
@@ -58,52 +102,5 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         }
         return sumOfCards
     };
-    $scope.getDealerSumOfCards = function () {
-        return $scope.sumArrayOfCards($scope.dealerCards);
-    };
-    $scope.playerLost = function () {
-        $scope.player.loses++;
-    };
-
-    $scope.getAdvice = function () {
-        if($scope.player.handSum>21)
-            return "lost";
-        if($scope.player.numberOfCards() ==2)
-        {
-           if($scope.player.hand[0].rank == $scope.player.hand[1].rank)
-           {
-               return strategyT.pairTable[$scope.player.hand[0].rank-1][$scope.DealerHandSum-1];
-           }
-        }
-        if($scope.player.isHandSoft($scope.player.hand))
-        {
-            return strategyT.softTable[$scope.player.handSum-13][$scope.DealerHandSum-1];
-        }
-        else //hand is Hard
-        {
-            return strategyT.hardTable[$scope.player.handSum - 5][$scope.DealerHandSum-1];
-        }
-    };
-    $scope.calcAdvice = function () {
-        $scope.advice = $scope.getAdvice();
-    };
-
-    
-
-    $scope.$watchCollection('player.hand', function (newValue)
-    {
-        $scope.player.handSum = $scope.getPlayerSumOfCards(newValue);
-    });
-    $scope.$watchCollection('dealerCards', function (newValue)
-    {
-        $scope.DealerHandSum = $scope.getDealerSumOfCards(newValue);
-    });
-    $scope.$watch('player.handSum',function(newSum)
-    {
-        if(newSum>21)
-        {
-            $scope.playerLost();
-        }
-    });
 
 });
