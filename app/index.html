@@ -14,8 +14,6 @@
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <script src="js/materialize/materialize.min.js"></script>
     <script src="js/angular-1.5.6/angular.min.js"></script>
-    <script src="js/angular-1.5.6/angular-sanitize.min.js"></script>
-
 
     <!-- JavaScript Custom -->
     <script src="js/app.js"></script>
@@ -66,12 +64,11 @@
                         <li ng-repeat="card in player.hand">
                             <a class="card rank-{{card.getRank()}} {{card.suit}}">
                                 <span class="rank">{{card.getRank()}}</span>
-                                <span class="suit">{{"&" + card.getSuit() + ";"}}</span>
+                                <span class="suit"></span>
                             </a>
                         </li>
                     </ul>
                 </div>
-                <span ></span></span>
             </div>
             <div class="col l4">
                 <span class="text-white">Wins: {{player.wins}}</span>

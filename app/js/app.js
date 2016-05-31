@@ -1,4 +1,4 @@
-var BlackJack = angular.module('ngBlackJack', ['ngSanitize']);
+var BlackJack = angular.module('ngBlackJack', []);
 
 BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAgainst2to10) {
     
