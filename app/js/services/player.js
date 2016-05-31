@@ -19,5 +19,21 @@ BlackJack.factory('Player', function () {
     Player.prototype.resetHand = function() {
         this.hand = [];
     };
+    Player.prototype.isHandSoft = function (array) {
+        var sum=0;
+        var foundAce =false;
+        angular.forEach(array, function (card) {
+            if(card.rank>=10){sum+= 10}
+            else{sum+= card.rank}
+            if (card.rank == 1)
+            {foundAce = true}
+        });
+        if(foundAce ==true && sum<12)
+        {
+            return true;
+        }
+        return false;
+    };
+
     return Player;
 });

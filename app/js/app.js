@@ -72,42 +72,27 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         {
            if($scope.player.hand[0].rank == $scope.player.hand[1].rank)
            {
-               return strategyT.pairTable[$scope.player.hand[0].rank-1][$scope.DealerHandSum-2];
+               return strategyT.pairTable[$scope.player.hand[0].rank-1][$scope.DealerHandSum-1];
            }
         }
-        if(isHandSoft($scope.player.hand))
+        if($scope.player.isHandSoft($scope.player.hand))
         {
-            return strategyT.softTable[$scope.player.handSum-13][$scope.DealerHandSum-2];
+            return strategyT.softTable[$scope.player.handSum-13][$scope.DealerHandSum-1];
         }
         else //hand is Hard
         {
-            return strategyT.hardTable[$scope.player.handSum - 5][$scope.DealerHandSum-2];
+            return strategyT.hardTable[$scope.player.handSum - 5][$scope.DealerHandSum-1];
         }
     };
     $scope.calcAdvice = function () {
         $scope.advice = $scope.getAdvice();
     };
 
-    function isHandSoft(array) {
-        var sum=0;
-        var foundAce =false;
-        angular.forEach(array, function (card) {
-            if(card.rank>=10){sum+= 10}
-            else{sum+= card.rank}
-            if (card.rank == 1)
-            {foundAce = true}
-        });
-        if(foundAce ==true && sum<12)
-        {
-            return true;
-        }
-        return false;
-    }
+    
 
     $scope.$watchCollection('player.hand', function (newValue)
     {
         $scope.player.handSum = $scope.getPlayerSumOfCards(newValue);
-        console.log($scope.player.hand);
     });
     $scope.$watchCollection('dealerCards', function (newValue)
     {
