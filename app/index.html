@@ -22,8 +22,8 @@
     <script src="js/services/strategy-tables/surrenderAgainst2to10.js"></script>
 
 </head>
-<body ng-controller="ngGame" class="main">
-    <div class="container">
+<body ng-controller="ngGame" class="">
+    <div class="container main">
         <div class="row center">
             <div>
                 <span>Dealer Sum of Cards: {{DealerHandSum}}</span>
@@ -33,7 +33,7 @@
             </div>
         </div>
 
-        <div class="row center">
+        <div class="row center" style="margin-top: 57%">
             <div class="col l4">
                 <span>Player Sum of Cards: {{player.handSum}}</span>
             </div>
@@ -45,12 +45,11 @@
                 <span>Loses: {{player.loses}}</span>
             </div>
         </div>
-
-        <div id="deal" class="row center animated zoomInUp" ng-hide="startGame">
-            <a class="waves-effet waves-light light-green lighten-1 btn" ng-click="dealCards()">Deal</a>
-        </div>
-
-        <div id="gameIcons" class="row center animated flipInX" ng-show="startGame">
+        <div>
+            <div id="deal" class="row center animated zoomInUp" ng-hide="startGame">
+                <a class="waves-effet waves-light light-green lighten-1 btn" ng-click="dealCards()">Deal</a>
+            </div>
+            <div id="gameIcons" class="row center animated flipInX" ng-show="startGame">
             <div class="start-game-buttons">
                 <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">block</i></a>
                 <span class="start-game-text">Surrender</span>
@@ -75,6 +74,7 @@
                 <a class="btn-floating tooltipped btn-large waves-effect waves-light yellow darken-3" data-position="right" data-delay="50" data-tooltip="Tooltip"><i class="material-icons">star</i></a>
                 <span class="start-game-text">Advice?</span>
             </div>
+        </div>
         </div>
     </div>
 

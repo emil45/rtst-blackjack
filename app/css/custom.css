@@ -1,5 +1,6 @@
 html {
-    background: linear-gradient(rgba(0, 113, 22, 0.86), rgb(2, 3, 3));
+    background: url("../img/table2.png");
+    background-repeat: no-repeat;
 }
 
 .start-game-buttons {
@@ -8,9 +9,7 @@ html {
 }
 
 .main {
-    background: url("../img/table.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
+
 }
 
 .start-game-text {
