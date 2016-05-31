@@ -1,11 +1,12 @@
 var BlackJack = angular.module('ngBlackJack', []);
 
-BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
+BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAgainst2to10) {
     
     $scope.startGame = false;
     $scope.dealerCards = [];
     $scope.DealerHandSum=0;
 
+    var strategyT = new surrenderAgainst2to10();
     $scope.player = new Player();
 
     
@@ -65,22 +66,28 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player) {
     };
 
     $scope.getAdvice = function () {
+        if($scope.player.handSum>21)
+            return "lost";
         if($scope.player.numberOfCards() ==2)
         {
-           if($scope.player.hand[0] == $scope.player.hand[1])
+           if($scope.player.hand[0].rank == $scope.player.hand[1].rank)
            {
-               return $scope.player.hand[0] + $scope.getDealerSumOfCards()
+               return strategyT.pairTable[$scope.player.hand[0].rank-1][$scope.DealerHandSum-2];
            }
         }
         if(isHandSoft($scope.player.hand))
         {
-            return $scope.getPlayerSumOfCards() +$scope.getDealerSumOfCards(); //SOFT
+            return strategyT.softTable[$scope.player.handSum-13][$scope.DealerHandSum-2];
         }
         else //hand is Hard
         {
-            return $scope.getPlayerSumOfCards() +$scope.getDealerSumOfCards(); //HARD
+            return strategyT.hardTable[$scope.player.handSum - 5][$scope.DealerHandSum-2];
         }
     };
+    $scope.calcAdvice = function () {
+        $scope.advice = $scope.getAdvice();
+    };
+
     function isHandSoft(array) {
         var sum=0;
         var foundAce =false;
