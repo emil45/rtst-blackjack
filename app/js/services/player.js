@@ -15,6 +15,9 @@ BlackJack.factory('Player', function () {
     Player.prototype.numberOfCards = function () {
         return this.hand.length;
     };
-    
+
+    Player.prototype.resetHand = function() {
+        this.hand = [];
+    };
     return Player;
 });
