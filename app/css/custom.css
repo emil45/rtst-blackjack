@@ -1,0 +1,30 @@
+html {
+    background: #466368;
+    background: linear-gradient(to bottom, #008C29, #0A0C0A);
+}
+
+.start-game-buttons {
+    display: inline-block; !important;
+    margin-right: 5px;
+}
+
+.main {
+    background: url("../img/table.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.start-game-text {
+    display: block;
+}
+
+#deal {
+    animation-duration: 1.5s;
+    -vendor-animation-duration: 3s;
+    -vendor-animation-delay: 0.5s;
+}
+
+#gameIcons {
+    animation-duration: 1.5s;
+    -vendor-animation-duration: 2s;
+}
