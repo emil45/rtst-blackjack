@@ -1,0 +1,19 @@
+.start-game-buttons {
+    display: inline-block; !important;
+    margin-right: 5px;
+}
+
+.start-game-text {
+    display: block;
+}
+
+#deal {
+    animation-duration: 1.5s;
+    -vendor-animation-duration: 3s;
+    -vendor-animation-delay: 0.5s;
+}
+
+#gameIcons {
+    animation-duration: 1.5s;
+    -vendor-animation-duration: 2s;
+}
