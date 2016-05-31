@@ -3,11 +3,6 @@ html {
     background-repeat: no-repeat;
 }
 
-#wood {
-    background: url("../img/wood.png");
-    background-repeat: no-repeat;
-}
-
 .start-game-buttons {
     display: inline-block; !important;
     margin-right: 5px;
@@ -30,6 +25,10 @@ html {
 
 .container {
     width: 85%; !important;
+}
+
+.text-white {
+    color: white;
 }
 
 .centered {

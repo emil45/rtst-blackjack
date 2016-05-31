@@ -26,51 +26,59 @@
 
 </head>
 <body ng-controller="ngGame" style="">
-    <div class="playingCards faceImages rotateHand">
-        <ul class="hand">
-            <li>
-                <a class="card rank-8 hearts">
-                    <span class="rank">8</span>
-                    <span class="suit">♥</span>
-                </a>
-            </li>
-            <li>
-                <a class="card rank-q hearts">
-                    <span class="rank">Q</span>
-                    <span class="suit">♥</span>
-                </a>
-            </li>
-            <li>
-                <a class="card rank-k spades">
-                    <span class="rank">K</span>
-                    <span class="suit">♠</span>
-                </a>
-            </li>
-        </ul>
-    </div>
     <div class="container centered">
         <div class="row center">
             <div>
-                <span>Dealer Sum of Cards: {{dealerHandSum}}</span>
+                <span class="text-white">Dealer Sum of Cards: {{dealerHandSum}}</span>
             </div>
             <div>
-                <span>Dealer Cards: <span ng-repeat="card in dealerCards">{{card}}</span></span>
+                <div class="col l4">
+                    <div class="playingCards faceImages rotateHand">
+                        <ul class="hand">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li ng-repeat="card in dealerCards">
+                                <a class="card rank-{{card.getRank()}} {{card.suit}}">
+                                    <span class="rank">{{card.getRank()}}</span>
+                                    <span class="suit"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <span ></span></span>
+                </div>
             </div>
         </div>
 
         <div class="row center">
             <div class="col l4">
-                <span>Player Sum of Cards: {{player.handSum}}</span>
+                <span class="text-white">Player Sum of Cards: {{player.handSum}}</span>
             </div>
             <div class="col l4">
-                <span>Cards: <span ng-repeat="card in player.hand">{{card}}</span></span>
+                <div class="playingCards faceImages rotateHand">
+                    <ul class="table">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li ng-repeat="card in player.hand">
+                            <a class="card rank-{{card.getRank()}} {{card.suit}}">
+                                <span class="rank">{{card.getRank()}}</span>
+                                <span class="suit">{{"&" + card.getSuit() + ";"}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <span ></span></span>
             </div>
             <div class="col l4">
-                <span>Wins: {{player.wins}}</span>
-                <span>Loses: {{player.loses}}</span>
+                <span class="text-white">Wins: {{player.wins}}</span>
+                <span class="text-white">Loses: {{player.loses}}</span>
             </div>
         </div>
-        <div>
+        <div class="text-white">
             <div id="deal" class="row center animated zoomInDown" ng-hide="startGame">
                 <a class="waves-effet waves-light light-green lighten-1 btn" ng-click="dealCards()">Deal</a>
             </div>
@@ -102,7 +110,5 @@
         </div>
         </div>
     </div>
-    <div id="wood"> </div>
-
 </body>
 </html>

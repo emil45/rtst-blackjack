@@ -1,6 +1,6 @@
 BlackJack.factory('Deck', function (Card) {
 
-    var suits = [ 'heart', 'diamond', 'spade', 'club'];
+    var suits = [ 'hearts', 'diams', 'spades', 'clubs'];
     var ranks = [1, 2 ,3 , 4 , 5 ,6 ,7 , 8 ,9 ,10, 11 ,12 ,13];
 
     var Deck  = function (numOfDecks) {
