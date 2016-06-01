@@ -1,10 +1,26 @@
+html {
+    background: url('../img/background.jpg') no-repeat;
+    background-size: 100%;
+}
+
 #background-image {
-    border-radius: 186px;
-    background: url("../img/table3.png");
-    background-repeat: no-repeat;
-    border-style: solid;
-    border-color: #423007;
-    border-width: 24px;
+    border-radius: 0 0 560px 560px;
+    background: url('../img/table.jpg') no-repeat;
+    background-size: 100%;
+    border: 30px solid #000000;
+}
+
+#background-image:before{
+    content:"";
+    display:block;
+    position:absolute;
+    z-index:-1;
+    top:0;
+    left:-8px;
+    right:-8px;
+    bottom:-10px;
+    border-radius: 0 0 600px 600px;
+    border:10px solid #8B4513;
 }
 
 .start-game-buttons {
@@ -35,7 +51,7 @@
 
 .container {
     width: 85% !important;
-    height: 570px;
+    height: 610px;
 }
 
 .text-white {
