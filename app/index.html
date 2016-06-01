@@ -6,6 +6,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/materialize/materialize.min.css">
     <link rel="stylesheet" href="css/materialize/material-icons.css">
+    <link rel="stylesheet" href="css/wood-button.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/cards.css">
@@ -29,23 +30,18 @@
             <div>
                 <span class="text-white">Dealer Sum of Cards: {{dealerHandSum}}</span>
             </div>
-            <div>
-                <div class="col l4">
-                    <div class="playingCards faceImages rotateHand">
-                        <ul class="hand">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li ng-repeat="card in dealerCards">
-                                <a class="card rank-{{card.getRank()}} {{card.suit}}">
-                                    <span class="rank">{{card.getRank()}}</span>
-                                    <span class="suit"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <span ></span></span>
+        </div>
+        <div class="row">
+            <div class="offset-l5 col l3">
+                <div class="playingCards faceImages rotateHand">
+                    <ul class="table">
+                        <li ng-repeat="card in dealerCards">
+                            <a class="card rank-{{card.getRank()}} {{card.suit}}">
+                                <span class="rank">{{card.getRank()}}</span>
+                                <span class="suit"></span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -107,16 +103,15 @@
         </div>
     </div>
     <div class="fixed-action-btn" style="bottom: 45px; right: 70px;">
-        <div class="card-panel teal z-depth-0">
+        <div class="wood card-panel z-depth-0">
             <div>
-                <span class="text-white">Wins: {{player.wins}}</span>
+                <span class="=">Wins: {{player.wins}}</span>
             </div>
             <div>
-                <span class="text-white">Loses: {{player.loses}}</span>
+                <span class="">Loses: {{player.loses}}</span>
             </div>
 
         </div>
-    </div>
     </div>
 </body>
 </html>
