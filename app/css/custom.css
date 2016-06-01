@@ -1,29 +1,55 @@
-html {
-    background: linear-gradient(rgba(0, 113, 22, 0.86), rgb(2, 3, 3));
+#background-image {
+    border-radius: 186px;
+    background: url("../img/table3.png");
+    background-repeat: no-repeat;
+    border-style: solid;
+    border-color: #423007;
+    border-width: 24px;
 }
 
 .start-game-buttons {
-    display: inline-block; !important;
+    display: inline-block !important;
     margin-right: 5px;
-}
-
-.main {
-    background: url("../img/table.png");
-    background-size: 100%;
-    background-repeat: no-repeat;
 }
 
 .start-game-text {
     display: block;
+    color: white;
 }
 
 #deal {
     animation-duration: 1.5s;
     -vendor-animation-duration: 3s;
-    -vendor-animation-delay: 0.5s;
 }
 
-#gameIcons {
+#top-icons {
     animation-duration: 1.5s;
-    -vendor-animation-duration: 2s;
+    -vendor-animation-duration: 1.5s;
+}
+
+#bottom-icons {
+    animation-duration: 7s;
+    -vendor-animation-duration: 4s;
+    -vendor-animation-delay: 1s;
+}
+
+.container {
+    width: 85% !important;
+    height: 570px;
+}
+
+.text-white {
+    color: white;
+}
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}
+
+.cards-hand {
+    margin-bottom: 0 !important;
 }

@@ -18,7 +18,7 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit],
         [hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit],
         [hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit],
-        [hit, hit, stand, stand, stand, hit, hit, hit, hit, hit],
+        [hit, hit, hit, stand, stand, stand, hit, hit, hit, hit],
         [hit, stand, stand, stand, stand, stand, hit, hit, hit, hit],
         [hit, stand, stand, stand, stand, stand, hit, hit, hit, hit],
         [hit, stand, stand, stand, stand, stand, hit, hit, hit, surrenderOtherwiseHit],

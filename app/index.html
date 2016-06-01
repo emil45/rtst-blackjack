@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/materialize/material-icons.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/cards.css">
 
     <!-- JavaScript -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
@@ -22,61 +23,100 @@
     <script src="js/services/strategy-tables/surrenderAgainst2to10.js"></script>
 
 </head>
-<body ng-controller="ngGame" class="main">
-    <div class="container">
+<body ng-controller="ngGame" style="">
+    <div id="background-image" class="container centered">
         <div class="row center">
             <div>
-                <span>Dealer Sum of Cards: {{dealerHandSum}}</span>
+                <span class="text-white">Dealer Sum of Cards: {{dealerHandSum}}</span>
             </div>
             <div>
-                <span>Dealer Cards: <span ng-repeat="card in dealerCards">{{card}}</span></span>
+                <div class="col l4">
+                    <div class="playingCards faceImages rotateHand">
+                        <ul class="hand">
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li ng-repeat="card in dealerCards">
+                                <a class="card rank-{{card.getRank()}} {{card.suit}}">
+                                    <span class="rank">{{card.getRank()}}</span>
+                                    <span class="suit"></span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <span ></span></span>
+                </div>
             </div>
         </div>
-
         <div class="row center">
             <div class="col l4">
-                <span>Player Sum of Cards: {{player.handSum}}</span>
+                <span class="text-white">Player Sum of Cards: {{player.handSum}}</span>
             </div>
             <div class="col l4">
-                <span>Cards: <span ng-repeat="card in player.hand">{{card}}</span></span>
-            </div>
-            <div class="col l4">
-                <span>Wins: {{player.wins}}</span>
-                <span>Loses: {{player.loses}}</span>
+                <div class="playingCards faceImages rotateHand">
+                    <ul class="hand cards-hand">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li ng-repeat="card in player.hand">
+                            <a class="card rank-{{card.getRank()}} {{card.suit}}">
+                                <span class="rank">{{card.getRank()}}</span>
+                                <span class="suit"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-
-        <div id="deal" class="row center animated zoomInUp" ng-hide="startGame">
-            <a class="waves-effet waves-light light-green lighten-1 btn" ng-click="dealCards()">Deal</a>
-        </div>
-
-        <div id="gameIcons" class="row center animated flipInX" ng-show="startGame">
-            <div class="start-game-buttons">
-                <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">block</i></a>
-                <span class="start-game-text">Surrender</span>
+        <div>
+            <div id="deal" class="row center animated" ng-hide="startGame">
+                <a class="waves-effet waves-light light-green lighten-1 btn" ng-click="dealCards()">Deal</a>
             </div>
-            <div class="start-game-buttons">
-                <a class="btn-floating btn-large waves-effect waves-light green" ng-click="hitCardForPlayer()"><i class="material-icons">add_circle</i></a>
-                <span class="start-game-text">Hit</span>
-            </div>
-            <div class="start-game-buttons">
-                <a class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">pan_tool</i></a>
-                <span class="start-game-text">Stand</span>
-            </div>
-            <div class="start-game-buttons">
-                <a class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">exposure_plus_2</i></a>
-                <span class="start-game-text">Double</span>
-            </div>
-            <div class="start-game-buttons">
-                <a class="btn-floating btn-large waves-effect waves-light brown"><i class="material-icons">call_split</i></a>
-                <span class="start-game-text">Split</span>
-            </div>
-            <div class="start-game-buttons">
-                <a class="btn-floating tooltipped btn-large waves-effect waves-light yellow darken-3" data-position="right" data-delay="50" data-tooltip={{getAdvice()}}><i class="material-icons">star</i></a>
-                <span class="start-game-text">Advice?</span>
+            <div class="row center" ng-show="startGame">
+                <div id="top-icons" class="animated flipInX">
+                    <div class="start-game-buttons">
+                        <a class="btn-floating btn-large waves-effect waves-light green" ng-click="hitCardForPlayer()"><i class="material-icons">add_circle</i></a>
+                        <span class="start-game-text">Hit</span>
+                    </div>
+                    <div class="start-game-buttons">
+                        <a class="btn-floating btn-large waves-effect waves-light "><i class="material-icons">pan_tool</i></a>
+                        <span class="start-game-text">Stand</span>
+                    </div>
+                    <div class="start-game-buttons">
+                        <a class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">exposure_plus_2</i></a>
+                        <span class="start-game-text">Double</span>
+                    </div>
+                    <div class="start-game-buttons">
+                        <a class="btn-floating btn-large waves-effect waves-light brown"><i class="material-icons">call_split</i></a>
+                        <span class="start-game-text">Split</span>
+                    </div>
+                </div>
+                <div id="bottom-icons" class="animated fadeIn">
+                    <div class="start-game-buttons">
+                        <a class="btn-floating btn-large waves-effect waves-light red" ng-click="surrender()"><i class="material-icons">block</i></a>
+                        <span class="start-game-text">Surrender</span>
+                    </div>
+                    <div class="start-game-buttons">
+                        <a class="btn-floating tooltipped btn-large waves-effect waves-light yellow darken-3" data-position="right" data-delay="50" data-tooltip={{getAdvice()}}><i class="material-icons">star</i></a>
+                        <span class="start-game-text">Advice?</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <div class="fixed-action-btn" style="bottom: 45px; right: 70px;">
+        <div class="card-panel teal z-depth-0">
+            <div>
+                <span class="text-white">Wins: {{player.wins}}</span>
+            </div>
+            <div>
+                <span class="text-white">Loses: {{player.loses}}</span>
+            </div>
 
+        </div>
+    </div>
+    </div>
 </body>
 </html>
