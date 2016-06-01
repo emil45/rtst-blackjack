@@ -3,12 +3,12 @@ BlackJack.factory('surrenderAgainst2to10', function () {
     var Tables = function () {
 
     };
-    var hit = "H";
-    var stand = "S";
-    var split = "P";
-    var doubleOtherwiseHit = "Dh";
-    var doubleOtherwiseStand = "Ds";
-    var surrenderOtherwiseHit = "Rh";
+    var hit = "Hit";
+    var stand = "Stand";
+    var split = "Split";
+    var doubleOtherwiseHit = "Double otherwise hit";
+    var doubleOtherwiseStand = "Double otherwise stand";
+    var surrenderOtherwiseHit = "Surrender otherwise hit";
 
     Tables.prototype.hardTable = [
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],

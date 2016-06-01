@@ -52,14 +52,12 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     $scope.stand = function () {
 
         dealerHitCard();
+
         while($scope.dealerHandSum < 17 && $scope.player.handSum <=21)
         {
             dealerHitCard();
-            $scope.dealerHandSum = getDealerSumOfCards();
         }
         checkWinner();
-
-
     };
 
     $scope.surrender = function () {
@@ -85,7 +83,8 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         }
     });
     function dealerHitCard() {
-        $scope.dealerCards.push($scope.deck.popCard())
+        $scope.dealerCards.push($scope.deck.popCard());
+        $scope.dealerHandSum = getDealerSumOfCards();
     }
     function playerHitCard() {
         $scope.player.takeCard($scope.deck.popCard())
