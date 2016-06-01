@@ -100,10 +100,11 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         {
             if($scope.player.handSum == 21 && $scope.player.numberOfCards()<3)
             {
-                playerWon()
+                alert("BALCKJACK!!!!!!!");
+                playerWins();
                 return "BlackJack";}
             else{//player bigger then dealer, player wins
-                playerWon()
+                playerWins();
                 return "won";
             }
         }
@@ -114,13 +115,15 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
                 return "You lose!";
             }else if($scope.dealerHandSum > 21 && $scope.player.handSum<=21)
             {
-                playerWon()
+                playerWins();
                 return "You win - dealer bust!";
             }
         }
         else if($scope.dealerHandSum == $scope.player.handSum)
         {
             //no winner
+            alert("no winner today cowboy");
+            $scope.startGame = false;
             return "push"
         }
     }
@@ -128,8 +131,8 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         $scope.player.lostHand();
         $scope.startGame = false;
     }
-    function playerWon() {
-        $scope.player.wonHand();
+    function playerWins() {
+        $scope.player.winsHand();
         $scope.startGame = false;
     }
     function getPlayerSumOfCards() {
