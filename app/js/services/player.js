@@ -38,6 +38,9 @@ BlackJack.factory('Player', function () {
     Player.prototype.lostHand = function () {
         this.loses++;
     };
+    Player.prototype.wonHand = function () {
+        this.wins++;
+    };
     Player.prototype.surrender = function () {
         this.lostHand();
     };

@@ -16,21 +16,16 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         $scope.dealerHandSum = 0;
         $scope.player.resetHand();
 
-        var firstPlayerCard = $scope.deck.popCard();
-        var secondPlayerCard = $scope.deck.popCard();
-        var firstDealerCard = $scope.deck.popCard();
+        playerHitCard();
+        playerHitCard();
 
-        $scope.player.takeCard(firstPlayerCard);
-        $scope.player.takeCard(secondPlayerCard);
-
-        $scope.dealerCards.push(firstDealerCard);
+        dealerHitCard();
 
         $scope.startGame = true
     };
 
     $scope.hitCardForPlayer = function () {
-        var anotherCard = $scope.deck.popCard();
-        $scope.player.takeCard(anotherCard);
+        playerHitCard()
     };
 
     $scope.getAdvice = function () {
@@ -41,22 +36,34 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         {
            if($scope.player.hand[0].rank == $scope.player.hand[1].rank)
            {
-               return strategyTables.pairTable[$scope.player.hand[0].rank - 1][$scope.dealerHandSum - 1];
+               return strategyTables.pairTable[$scope.player.hand[0].rank - 1][$scope.dealerHandSum - 2];
            }
         }
         if($scope.player.isHandSoft($scope.player.hand))
         {
-            return strategyTables.softTable[$scope.player.handSum - 13][$scope.dealerHandSum - 1];
+            return strategyTables.softTable[$scope.player.handSum - 13][$scope.dealerHandSum - 2];
         }
         else //hand is Hard
         {
-            return strategyTables.hardTable[$scope.player.handSum - 5][$scope.dealerHandSum - 1];
+            return strategyTables.hardTable[$scope.player.handSum - 5][$scope.dealerHandSum - 2];
         }
     };
 
+    $scope.stand = function () {
+
+        dealerHitCard();
+        while($scope.dealerHandSum < 17 && $scope.player.handSum <=21)
+        {
+            dealerHitCard();
+            $scope.dealerHandSum = getDealerSumOfCards();
+        }
+        checkWinner();
+
+
+    };
+
     $scope.surrender = function () {
-        $scope.player.lostHand();
-        $scope.startGame = false;
+        playerLost();
     };
 
     $scope.$watchCollection('player.hand', function (newValue)
@@ -77,15 +84,60 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
             $scope.startGame = false;
         }
     });
-
+    function dealerHitCard() {
+        $scope.dealerCards.push($scope.deck.popCard())
+    }
+    function playerHitCard() {
+        $scope.player.takeCard($scope.deck.popCard())
+    }
+    function checkWinner() {
+        if($scope.player.handSum>21)
+        {
+            playerLost();
+            return "lost";
+        }
+        else if($scope.player.handSum > $scope.dealerHandSum) //player sum <=21 && player sum > dealer sum
+        {
+            if($scope.player.handSum == 21 && $scope.player.numberOfCards()<3)
+            {
+                playerWon()
+                return "BlackJack";}
+            else{//player bigger then dealer, player wins
+                playerWon()
+                return "won";
+            }
+        }
+        else if($scope.dealerHandSum > $scope.player.handSum) {
+            if ($scope.dealerHandSum <= 21)
+            {
+                playerLost();
+                return "You lose!";
+            }else if($scope.dealerHandSum > 21 && $scope.player.handSum<=21)
+            {
+                playerWon()
+                return "You win - dealer bust!";
+            }
+        }
+        else if($scope.dealerHandSum == $scope.player.handSum)
+        {
+            //no winner
+            return "push"
+        }
+    }
+    function playerLost() {
+        $scope.player.lostHand();
+        $scope.startGame = false;
+    }
+    function playerWon() {
+        $scope.player.wonHand();
+        $scope.startGame = false;
+    }
     function getPlayerSumOfCards() {
         return sumArrayOfCards($scope.player.hand);
     }
-
     function getDealerSumOfCards() {
         return sumArrayOfCards($scope.dealerCards);
     }
-
     function sumArrayOfCards(arrayOfCards)
     {
         var sumOfCards = 0;
