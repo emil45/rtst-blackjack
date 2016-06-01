@@ -1,6 +1,10 @@
-html {
-    background: url("../img/table2.png");
+#background-image {
+    border-radius: 186px;
+    background: url("../img/table3.png");
     background-repeat: no-repeat;
+    border-style: solid;
+    border-color: #423007;
+    border-width: 24px;
 }
 
 .start-game-buttons {
@@ -10,21 +14,28 @@ html {
 
 .start-game-text {
     display: block;
+    color: white;
 }
 
 #deal {
     animation-duration: 1.5s;
     -vendor-animation-duration: 3s;
-    -vendor-animation-delay: 0.5s;
 }
 
-#gameIcons {
+#top-icons {
     animation-duration: 1.5s;
-    -vendor-animation-duration: 2s;
+    -vendor-animation-duration: 1.5s;
+}
+
+#bottom-icons {
+    animation-duration: 7s;
+    -vendor-animation-duration: 4s;
+    -vendor-animation-delay: 1s;
 }
 
 .container {
     width: 85%; !important;
+    height: 570px;
 }
 
 .text-white {
