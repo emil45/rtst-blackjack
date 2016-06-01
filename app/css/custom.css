@@ -48,8 +48,10 @@ html {
 }
 
 #bottom-icons {
-    animation-duration: 7s;
-    -vendor-animation-duration: 7s;
+    animation-duration: 10s;
+    animation-delay: 1s;
+    -vendor-animation-duration: 10s;
+    -vendor-animation-delay: 1s;
 }
 
 .container {
@@ -91,6 +93,15 @@ html {
     z-index: 998;
 }
 
+.advice {
+    bottom: 45px;
+    left: 70px;
+    position: fixed;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 998;
+}
+
 .wins-loses {
     bottom: 45px;
     right: 70px;
@@ -98,4 +109,16 @@ html {
     padding-top: 15px;
     margin-bottom: 0;
     z-index: 998;
+}
+
+.no-hover {
+    cursor: default;
+}
+
+.wins-loses-hover {
+    cursor: progress;
+}
+
+.advice-hover {
+    cursor: help;
 }

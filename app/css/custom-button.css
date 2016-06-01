@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
 .custom-button {
     display: inline-block;
     font-weight: bold;
@@ -59,12 +61,4 @@
 .custom-button-holder {
     padding-top: 150px;
     text-align: center;
-}
-
-.no-hover {
-    cursor: default;
-}
-
-.wins-loses-hover {
-    cursor: progress;
 }
