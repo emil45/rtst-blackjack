@@ -15,14 +15,14 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
-        [hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit],
-        [hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit],
-        [hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit],
-        [hit, hit, hit, stand, stand, stand, hit, hit, hit, hit],
-        [hit, stand, stand, stand, stand, stand, hit, hit, hit, hit],
-        [hit, stand, stand, stand, stand, stand, hit, hit, hit, hit],
-        [hit, stand, stand, stand, stand, stand, hit, hit, hit, surrenderOtherwiseHit],
-        [hit, stand, stand, stand, stand, stand, hit, hit, surrenderOtherwiseHit, surrenderOtherwiseHit],
+        [hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
+        [doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit],
+        [doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit],
+        [hit, hit, stand, stand, stand, hit, hit, hit, hit, hit],
+        [stand, stand, stand, stand, stand, hit, hit, hit, hit, hit],
+        [stand, stand, stand, stand, stand, hit, hit, hit, hit, hit],
+        [stand, stand, stand, stand, stand, hit, hit, hit, surrenderOtherwiseHit, hit],
+        [stand, stand, stand, stand, stand, hit, hit, surrenderOtherwiseHit, surrenderOtherwiseHit, hit],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
@@ -30,27 +30,27 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
     Tables.prototype.softTable = [
-        [hit, hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit],
-        [hit, hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit],
-        [hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit],
-        [hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit],
-        [hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit],
-        [hit, stand, doubleOtherwiseStand, doubleOtherwiseStand, doubleOtherwiseStand, doubleOtherwiseStand, stand, stand, hit, hit],
+        [hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
+        [hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
+        [hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
+        [hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
+        [hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
+        [stand, doubleOtherwiseStand, doubleOtherwiseStand, doubleOtherwiseStand, doubleOtherwiseStand, stand, stand, hit, hit, hit],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
     Tables.prototype.pairTable = [
-        [split, split, split, split, split, split, split, split, split, split],
-        [hit, hit, hit, split, split, split, split, hit, hit, hit],
-        [hit, hit, hit, split, split, split, split, hit, hit, hit],
-        [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
-        [hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit],
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
-        [hit, split, split, split, split, split, split, hit, hit, hit],
+        [hit, hit, split, split, split, split, hit, hit, hit, hit],
+        [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
+        [doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit],
+        [hit, split, split, split, split, hit, hit, hit, hit, hit],
+        [split, split, split, split, split, split, hit, hit, hit, hit],
         [split, split, split, split, split, split, split, split, split, split],
-        [stand, split, split, split, split, split, stand, split, split, stand],
-        [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
+        [split, split, split, split, split, stand, split, split, stand, stand],
+        [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
+        [split, split, split, split, split, split, split, split, split, split]];
 
     return Tables;
 
