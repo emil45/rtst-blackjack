@@ -8,7 +8,7 @@
 }
 
 .start-game-buttons {
-    display: inline-block; !important;
+    display: inline-block !important;
     margin-right: 5px;
 }
 
@@ -34,7 +34,7 @@
 }
 
 .container {
-    width: 85%; !important;
+    width: 85% !important;
     height: 570px;
 }
 
@@ -48,4 +48,8 @@
     left: 50%;
     /* bring your own prefixes */
     transform: translate(-50%, -50%);
+}
+
+.cards-hand {
+    margin-bottom: 0 !important;
 }
