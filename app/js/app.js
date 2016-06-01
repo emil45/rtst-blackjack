@@ -24,6 +24,14 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         $scope.startGame = true
     };
 
+    $scope.openRulesModal = function () {
+        $("#rules").openModal();
+    };
+
+    $scope.openTeamModal = function () {
+        $("#team").openModal();
+    };
+
     $scope.hitCardForPlayer = function () {
         playerHitCard()
     };

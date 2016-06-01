@@ -1,12 +1,16 @@
 html {
     background: url('../img/background.jpg') no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
+}
+
+.cards-rows {
+    height: 100px;
 }
 
 #background-image {
     border-radius: 0 0 560px 560px;
     background: url('../img/table.jpg') no-repeat;
-    background-size: 100%;
+    background-size: 100% 100%;
     border: 30px solid #000000;
 }
 
@@ -35,7 +39,7 @@ html {
 
 #deal {
     animation-duration: 1.5s;
-    -vendor-animation-duration: 3s;
+    -vendor-animation-duration: 1.5s;
 }
 
 #top-icons {
@@ -45,8 +49,7 @@ html {
 
 #bottom-icons {
     animation-duration: 7s;
-    -vendor-animation-duration: 4s;
-    -vendor-animation-delay: 1s;
+    -vendor-animation-duration: 7s;
 }
 
 .container {
@@ -68,4 +71,31 @@ html {
 
 .cards-hand {
     margin-bottom: 0 !important;
+}
+
+.rules {
+    top: 25px;
+    left: 50px;
+    position: fixed;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 998;
+}
+
+.team {
+    top: 25px;
+    right: 50px;
+    position: fixed;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 998;
+}
+
+.wins-loses {
+    bottom: 45px;
+    right: 70px;
+    position: fixed;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 998;
 }
