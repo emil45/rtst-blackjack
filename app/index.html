@@ -6,6 +6,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/materialize/materialize.min.css">
     <link rel="stylesheet" href="css/materialize/material-icons.css">
+    <link rel="stylesheet" href="css/wood-button.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/cards.css">
@@ -25,43 +26,12 @@
 </head>
 <body ng-controller="ngGame" style="">
     <div id="background-image" class="container centered">
-        <div class="row center">
-            <div>
-                <span class="text-white">Dealer Sum of Cards: {{dealerHandSum}}</span>
-            </div>
-            <div>
-                <div class="col l4">
-                    <div class="playingCards faceImages rotateHand">
-                        <ul class="hand">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li ng-repeat="card in dealerCards">
-                                <a class="card rank-{{card.getRank()}} {{card.suit}}">
-                                    <span class="rank">{{card.getRank()}}</span>
-                                    <span class="suit"></span>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <span ></span></span>
-                </div>
-            </div>
-        </div>
-        <div class="row center">
-            <div class="col l4">
-                <span class="text-white">Player Sum of Cards: {{player.handSum}}</span>
-            </div>
-            <div class="col l4">
+        <div class="row">
+            <div class="offset-l5 col l6">
                 <div class="playingCards faceImages rotateHand">
-                    <ul class="table cards-hand">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li ng-repeat="card in player.hand">
-                            <a class="card rank-{{card.getRank()}} {{card.suit}}">
+                    <ul class="table">
+                        <li ng-repeat="(key, card) in dealerCards">
+                            <a class="card animated fadeInRight rank-{{card.getRank()}} {{card.suit}}" style="animation-duration: {{key+2}}s;">
                                 <span class="rank">{{card.getRank()}}</span>
                                 <span class="suit"></span>
                             </a>
@@ -70,26 +40,54 @@
                 </div>
             </div>
         </div>
+        <div class="row center">
+            <div>
+                <span class="text-white">Dealer Sum of Cards: {{dealerHandSum}}</span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-l4 col l7">
+                <div class="playingCards faceImages rotateHand">
+                    <ul class="table cards-hand">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li ng-repeat="(key, card) in player.hand">
+                            <a class="card animated fadeInLeft rank-{{card.getRank()}} {{card.suit}}" style="animation-duration: {{key+1}}s;">
+                                <span class="rank">{{card.getRank()}}</span>
+                                <span class="suit"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row center">
+            <div>
+                <span class="text-white">Player Sum of Cards: {{player.handSum}}</span>
+            </div>
+        </div>
         <div>
             <div id="deal" class="row center animated" ng-hide="startGame">
-                <a class="waves-effet waves-light light-green lighten-1 btn" ng-click="dealCards()">Deal</a>
+                <a class="waves-effet waves-light light-green darken-2 btn" ng-click="dealCards()">Deal</a>
             </div>
             <div class="row center" ng-show="startGame">
                 <div id="top-icons" class="animated flipInX">
                     <div class="start-game-buttons">
-                        <a class="btn-floating btn-large waves-effect waves-light green" ng-click="hitCardForPlayer()"><i class="material-icons">add_circle</i></a>
+                        <a class="btn-floating btn-large waves-effect waves-light green darken-4" ng-click="hitCardForPlayer()"><i class="material-icons">add_circle</i></a>
                         <span class="start-game-text">Hit</span>
                     </div>
                     <div class="start-game-buttons">
-                        <a class="btn-floating btn-large waves-effect waves-light " ng-click="stand()"><i class="material-icons">pan_tool</i></a>
+                        <a class="btn-floating btn-large waves-effect waves-light teal darken-4" ng-click="stand()"><i class="material-icons">pan_tool</i></a>
                         <span class="start-game-text">Stand</span>
                     </div>
                     <div class="start-game-buttons">
-                        <a class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">exposure_plus_2</i></a>
+                        <a class="btn-floating btn-large waves-effect waves-light blue darken-1"><i class="material-icons">exposure_plus_2</i></a>
                         <span class="start-game-text">Double</span>
                     </div>
                     <div class="start-game-buttons">
-                        <a class="btn-floating btn-large waves-effect waves-light brown"><i class="material-icons">call_split</i></a>
+                        <a class="btn-floating btn-large waves-effect waves-light brown darken-4"><i class="material-icons">call_split</i></a>
                         <span class="start-game-text">Split</span>
                     </div>
                 </div>
@@ -107,16 +105,15 @@
         </div>
     </div>
     <div class="fixed-action-btn" style="bottom: 45px; right: 70px;">
-        <div class="card-panel teal z-depth-0">
+        <div class="wood card-panel z-depth-0">
             <div>
-                <span class="text-white">Wins: {{player.wins}}</span>
+                <span class="=">Wins: {{player.wins}}</span>
             </div>
             <div>
-                <span class="text-white">Loses: {{player.loses}}</span>
+                <span class="">Loses: {{player.loses}}</span>
             </div>
 
         </div>
-    </div>
     </div>
 </body>
 </html>
