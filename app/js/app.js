@@ -4,12 +4,11 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
 
 
     var strategyTables = new surrenderAgainst2to10();
-    
+
     $scope.splitCards = false;
     $scope.startGame = false;
     $scope.numOfDecks = 4;
     $scope.player = new Player();
-    $scope.chosenCard;
 
     $scope.dealCards = function () {
         $scope.deck = new Deck($scope.numOfDecks);
