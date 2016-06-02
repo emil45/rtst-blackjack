@@ -76,49 +76,53 @@ html {
 }
 
 .rules {
-    top: 25px;
-    left: 50px;
+    top: 5%;
+    left: 3%;
     position: fixed;
-    padding-top: 15px;
-    margin-bottom: 0;
-    z-index: 998;
 }
 
 .team {
-    top: 25px;
-    right: 50px;
+    top: 5%;
+    right: 3%;
     position: fixed;
-    padding-top: 15px;
-    margin-bottom: 0;
-    z-index: 998;
 }
 
 .advice {
-    bottom: 45px;
-    left: 70px;
-    position: fixed;
-    padding-top: 15px;
-    margin-bottom: 0;
-    z-index: 998;
+    padding-top: 10%;
+}
+
+.advice-fade {
+    animation-duration: 2s;
+    -vendor-animation-duration: 2s;
+}
+
+.advice-shake {
+    animation-delay: 10s;
+    animation-duration: 2s;
+    -vendor-animation-delay: 10s;
+    -vendor-animation-duration: 2s;
 }
 
 .wins-loses {
-    bottom: 45px;
-    right: 70px;
+    bottom: 5%;
+    right: 3%;
     position: fixed;
-    padding-top: 15px;
-    margin-bottom: 0;
-    z-index: 998;
 }
 
 .no-hover {
     cursor: default;
 }
 
-.wins-loses-hover {
-    cursor: progress;
-}
-
 .advice-hover {
     cursor: help;
+}
+
+.manual-mode-box {
+    padding-left: 3% !important;
+}
+
+.manual-mode-text {
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: white;
 }

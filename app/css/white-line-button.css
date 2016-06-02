@@ -57,8 +57,3 @@
 .custom-button:hover .lines:after {
     transform: translateY(100%);
 }
-
-.custom-button-holder {
-    padding-top: 150px;
-    text-align: center;
-}

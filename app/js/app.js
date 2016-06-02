@@ -5,6 +5,8 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
 
     var strategyTables = new surrenderAgainst2to10();
 
+    $scope.dealFirstTimeForAdvice = false;
+    $scope.showAdvice = false;
     $scope.splitCards = false;
     $scope.startGame = false;
     $scope.numOfDecks = 4;
@@ -20,10 +22,11 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
 
         playerHitCard();
         playerHitCard();
-
         dealerHitCard();
 
-        $scope.startGame = true
+        $scope.dealFirstTimeForAdvice = true;
+        $scope.showAdvice = true;
+        $scope.startGame = true;
     };
 
     $scope.openRulesModal = function () {
@@ -69,10 +72,12 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         }
         checkWinner();
     };
+
     $scope.double = function () {
         playerHitCard();
         $scope.stand();
-    }
+    };
+
     $scope.surrender = function () {
         dealerHitCard();
         playerLost();
@@ -93,6 +98,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         if(newSum > 21)
         {
             $scope.player.lostHand();
+            $scope.showAdvice = false;
             $scope.startGame = false;
         }
     });
@@ -138,16 +144,19 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         {
             //no winner
             alert("no winner today cowboy");
+            $scope.showAdvice = false;
             $scope.startGame = false;
             return "push"
         }
     }
     function playerLost() {
         $scope.player.lostHand();
+        $scope.showAdvice = false;
         $scope.startGame = false;
     }
     function playerWins() {
         $scope.player.winsHand();
+        $scope.showAdvice = false;
         $scope.startGame = false;
     }
     function getPlayerSumOfCards() {
@@ -179,10 +188,4 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         }
         return sumOfCards
     }
-
-    $('.advice').hover(
-        function(){ $(this).removeClass('infinite') },
-        function(){ $(this).addClass('infinite') }
-    )
-
 });

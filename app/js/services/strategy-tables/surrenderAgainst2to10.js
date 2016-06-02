@@ -3,12 +3,13 @@ BlackJack.factory('surrenderAgainst2to10', function () {
     var Tables = function () {
 
     };
-    var hit = "Hit";
-    var stand = "Stand";
-    var split = "Split";
-    var doubleOtherwiseHit = "Double otherwise hit";
-    var doubleOtherwiseStand = "Double otherwise stand";
-    var surrenderOtherwiseHit = "Surrender otherwise hit";
+    var hit = "May I suggest you to Hit, sir?";
+    var stand = "If I was in your place, I would Stand";
+    var split = "Can I just say you should Split";
+    var doubleOtherwiseHit = "You should Double otherwise Hit, no doubt about it";
+    var doubleOtherwiseStand = "A wise man once said Double otherwise stand";
+    var surrenderOtherwiseHit = "You have no choice but to Surrender otherwise Hit";
+
 
     Tables.prototype.hardTable = [
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
