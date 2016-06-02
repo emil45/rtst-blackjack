@@ -3,6 +3,7 @@ var BlackJack = angular.module('ngBlackJack', []);
 BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAgainst2to10) {
     
     $scope.startGame = false;
+    $scope.splitCards = false;
     $scope.numOfDecks = 4;
 
     var strategyTables = new surrenderAgainst2to10();
@@ -22,6 +23,14 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         dealerHitCard();
 
         $scope.startGame = true
+    };
+
+    $scope.openRulesModal = function () {
+        $("#rules").openModal();
+    };
+
+    $scope.openTeamModal = function () {
+        $("#team").openModal();
     };
 
     $scope.hitCardForPlayer = function () {
@@ -164,4 +173,10 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         }
         return sumOfCards
     }
+
+    $('.advice').hover(
+        function(){ $(this).removeClass('infinite') },
+        function(){ $(this).addClass('infinite') }
+    )
+
 });

@@ -1,0 +1,64 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
+
+.custom-button {
+    display: inline-block;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 15px 30px;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: background 300ms;
+}
+.custom-button.outline {
+    color: white;
+    overflow: hidden;
+    position: relative;
+}
+.custom-button.outline:before, .custom-button.outline:after, .custom-button.outline .lines:before, .custom-button.outline .lines:after {
+    background-color: white;
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    transition: transform 300ms;
+    width: 100%;
+}
+.custom-button.outline:before {
+    bottom: 0;
+    top: auto;
+}
+.custom-button.outline .lines {
+    display: block;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+}
+.custom-button.outline .lines:before, .custom-button.outline .lines:after {
+    height: 100%;
+    width: 2px;
+}
+.custom-button.outline .lines:after {
+    left: auto;
+    right: 0;
+}
+.custom-button:hover:before {
+    transform: translateX(-100%);
+}
+.custom-button:hover:after {
+    transform: translateX(100%);
+}
+.custom-button:hover .lines:before {
+    transform: translateY(-100%);
+}
+.custom-button:hover .lines:after {
+    transform: translateY(100%);
+}
+
+.custom-button-holder {
+    padding-top: 150px;
+    text-align: center;
+}
