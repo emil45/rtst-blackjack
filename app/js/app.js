@@ -1,12 +1,13 @@
 var BlackJack = angular.module('ngBlackJack', []);
 
 BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAgainst2to10) {
-    
-    $scope.startGame = false;
-    $scope.splitCards = false;
-    $scope.numOfDecks = 4;
+
 
     var strategyTables = new surrenderAgainst2to10();
+
+    $scope.splitCards = false;
+    $scope.startGame = false;
+    $scope.numOfDecks = 4;
     $scope.player = new Player();
 
     $scope.dealCards = function () {
@@ -34,7 +35,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     };
 
     $scope.hitCardForPlayer = function () {
-        playerHitCard()
+        playerHitCard();
     };
 
     $scope.getAdvice = function () {
@@ -61,17 +62,19 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     $scope.stand = function () {
 
         dealerHitCard();
+
         while($scope.dealerHandSum < 17 && $scope.player.handSum <=21)
         {
             dealerHitCard();
-            $scope.dealerHandSum = getDealerSumOfCards();
         }
         checkWinner();
-
-
     };
-
+    $scope.double = function () {
+        playerHitCard();
+        $scope.stand();
+    }
     $scope.surrender = function () {
+        dealerHitCard();
         playerLost();
     };
 
@@ -93,8 +96,11 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
             $scope.startGame = false;
         }
     });
+
+
     function dealerHitCard() {
-        $scope.dealerCards.push($scope.deck.popCard())
+        $scope.dealerCards.push($scope.deck.popCard());
+        $scope.dealerHandSum = getDealerSumOfCards();
     }
     function playerHitCard() {
         $scope.player.takeCard($scope.deck.popCard())
