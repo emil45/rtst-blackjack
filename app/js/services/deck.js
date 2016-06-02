@@ -37,6 +37,23 @@ BlackJack.factory('Deck', function (Card) {
     Deck.prototype.popCard = function () {
         return this.deck.pop();
     };
+    Deck.prototype.getSpecificCardByRank = function (cardRank) {
+        var cardToReturn;
+        var indexToSpliceFrom =-1;
+        angular.forEach(this.deck, function (card, index) {
+            if (card.rank == cardRank) {
+                cardToReturn = card;
+                indexToSpliceFrom =index;
+            }
+        });
+        if(indexToSpliceFrom != -1)
+        {
+            this.deck.splice(indexToSpliceFrom,1)
+            return cardToReturn;
+        }
+        else{return -1;}
+
+    };
 
     return Deck;
 

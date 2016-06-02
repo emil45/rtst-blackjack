@@ -25,7 +25,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     };
 
     $scope.hitCardForPlayer = function () {
-        playerHitCard()
+        playerHitCard();
     };
 
     $scope.getAdvice = function () {
@@ -59,8 +59,13 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         }
         checkWinner();
     };
+    $scope.double = function () {
+        playerHitCard();
+        $scope.stand();
+    }
 
     $scope.surrender = function () {
+        dealerHitCard();
         playerLost();
     };
 
