@@ -628,3 +628,7 @@
 .playingCards ul.deck li:nth-child(30) { left: 58px; bottom: 29px; }
 .playingCards ul.deck li:nth-child(31) { left: 60px; bottom: 30px; }
 .playingCards ul.deck li:nth-child(32) { left: 62px; bottom: 31px; }
+
+.card.rank-1.hearts {
+
+}
