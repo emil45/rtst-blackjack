@@ -36,11 +36,7 @@ BlackJack.factory('Deck', function (Card) {
         }
         return deckToShuffle;
     }
-
-    Deck.prototype.shuffle = function () {
-        this.deck = shuffleDeck(this.deck);
-    };
-
+    
     Deck.prototype.popCard = function () {
         return this.deck.pop();
     };
