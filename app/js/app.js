@@ -109,6 +109,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     
     $scope.manualChooseCard = function (rank, whoPlaying) {
         var card = $scope.deck.getSpecificCardByRank(rank);
+        // Check who activated the function - the player (whoPlaying = 1) or the dealer (whoPlaying = 2)
         if (whoPlaying == 1) {
             $scope.player.takeCard(card);
             $scope.player.handSum = getPlayerSumOfCards();
