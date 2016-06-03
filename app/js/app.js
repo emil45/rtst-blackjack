@@ -103,14 +103,43 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         }
     });
 
+    $scope.toggleManualMode = function() {
+        $scope.manualMode = !$scope.manualMode;
+    };
+    
+    $scope.manualChooseCard = function (rank, whoPlaying) {
+        var card = $scope.deck.getSpecificCardByRank(rank);
+        if (whoPlaying == 1) {
+            $scope.player.takeCard(card);
+            $scope.player.handSum = getPlayerSumOfCards();
+            $("#playerChooseCard").closeModal();
+        }
+        else {
+            $scope.dealerCards.push(card);
+            $scope.dealerHandSum = getDealerSumOfCards();
+            $("#dealerChooseCard").closeModal();
+        }
+
+    };
 
     function dealerHitCard() {
-        $scope.dealerCards.push($scope.deck.popCard());
-        $scope.dealerHandSum = getDealerSumOfCards();
+        if ($scope.manualMode == false) {
+            $scope.dealerCards.push($scope.deck.popCard());
+            $scope.dealerHandSum = getDealerSumOfCards();
+        }
+        else {
+            $("#dealerChooseCard").openModal();
+        }
     }
     function playerHitCard() {
-        $scope.player.takeCard($scope.deck.popCard());
-        $scope.player.handSum = getPlayerSumOfCards();
+        if ($scope.manualMode == false) {
+            $scope.player.takeCard($scope.deck.popCard());
+            $scope.player.handSum = getPlayerSumOfCards();
+        }
+        else {
+            $("#playerChooseCard").openModal();
+        }
+
     }
     function checkWinner() {
         if($scope.player.handSum > 21)

@@ -37,18 +37,19 @@ BlackJack.factory('Deck', function (Card) {
     Deck.prototype.popCard = function () {
         return this.deck.pop();
     };
+
     Deck.prototype.getSpecificCardByRank = function (cardRank) {
         var cardToReturn;
         var indexToSpliceFrom = -1;
         for (var i = 0; i < this.deck.length; i++) {
             if (this.deck[i].rank == cardRank) {
-                cardToReturn = this.deck[i].rank;
+                cardToReturn = this.deck[i];
                 indexToSpliceFrom = i;
                 break;
             }
         }
         if (indexToSpliceFrom != -1) {
-            this.deck.splice(indexToSpliceFrom, 1)
+            this.deck.splice(indexToSpliceFrom, 1);
             return cardToReturn;
         }
         else {

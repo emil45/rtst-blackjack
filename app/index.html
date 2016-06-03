@@ -47,11 +47,11 @@
             <div class="row">
                 <div class="col l3 m3 manual-mode-box">
                     <span class="manual-mode-text">Manual Mode: </span>
-                    <label class="switch" ng-click="manualMode != manualMode">
-                        <input type="checkbox" class="switch-input">
-                        <span class="switch-label" data-on="On" data-off="Off"></span>
-                        <span class="switch-handle"></span>
-                    </label>
+                        <label class="manual-switch">
+                            <input type="checkbox" class="switch-input">
+                            <span class="switch-label" data-on="On" data-off="Off" ng-click="toggleManualMode()"></span>
+                            <span class="switch-handle"></span>
+                        </label>
                 </div>
                 <div class="offset-l1 col l6 offset-m1 m6 cards-rows" style="padding-top: 10px;">
                     <div>
@@ -176,6 +176,40 @@
             <div class="modal-content">
                 <h4>Walla RTST</h4>
                 <p>Talk to me in passover</p>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Digger ...</a>
+            </div>
+        </div>
+
+        <div id="playerChooseCard" class="modal">
+            <div class="modal-content">
+                <h4>Player Card</h4>
+                <div class="row">
+                    <div class="col l2 m2" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13]">
+                        <div class="playing-card-parent-div">
+                            <div ng-click="manualChooseCard(i, 1)" class="playing-card rank-{{i}} hearts animated slideInUp">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Digger ...</a>
+            </div>
+        </div>
+
+        <div id="dealerChooseCard" class="modal">
+            <div class="modal-content">
+                <h4>Dealer Card</h4>
+                <div class="row">
+                    <div class="col l2 m2" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13]">
+                        <div class="playing-card-parent-div">
+                            <div ng-click="manualChooseCard(i, 2)" class="playing-card rank-{{i}} clubs animated slideInUp">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <a class="modal-action modal-close waves-effect waves-green btn-flat ">Digger ...</a>
