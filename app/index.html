@@ -55,7 +55,7 @@
                 </div>
                 <div class="offset-l1 col l6 offset-m1 m6 cards-rows" style="padding-top: 10px;">
                     <div>
-                        <div class="playing-card-parent-div" ng-repeat="(key, card) in dealerCards">
+                        <div class="playing-card-parent-div" ng-repeat="(key, card) in dealer.hand">
                             <div class="playing-card rank-{{card.rank}} {{card.suit}} animated fadeInRight" style="animation-duration: {{key+2}}s;">
                             </div>
                         </div>
@@ -78,7 +78,7 @@
             <div class="row center">
                 <div>
                     <a class="sum-boxes no-hover custom-button outline">
-                        <span>Dealer Sum of Cards: {{dealerHandSum}}</span>
+                        <span>Dealer Sum of Cards: {{dealer.handSum}}</span>
                         <span class="lines"></span>
                     </a>
                 </div>
