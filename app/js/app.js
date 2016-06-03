@@ -3,8 +3,6 @@ var BlackJack = angular.module('ngBlackJack', []);
 BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAgainst2to10) {
 
 
-    var strategyTables = new surrenderAgainst2to10();
-
     $scope.dealFirstTimeForAdvice = false;
     $scope.manualMode = false;
     $scope.showAdvice = false;
@@ -50,16 +48,16 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         {
            if($scope.player.hand[0].rank == $scope.player.hand[1].rank)
            {
-               return strategyTables.pairTable[$scope.player.hand[0].rank - 1][$scope.dealerHandSum - 2];
+               return surrenderAgainst2to10.pairTable[$scope.player.hand[0].rank - 1][$scope.dealerHandSum - 2];
            }
         }
         if($scope.player.isHandSoft($scope.player.hand))
         {
-            return strategyTables.softTable[$scope.player.handSum - 13][$scope.dealerHandSum - 2];
+            return surrenderAgainst2to10.softTable[$scope.player.handSum - 13][$scope.dealerHandSum - 2];
         }
         else //hand is Hard
         {
-            return strategyTables.hardTable[$scope.player.handSum - 5][$scope.dealerHandSum - 2];
+            return surrenderAgainst2to10.hardTable[$scope.player.handSum - 5][$scope.dealerHandSum - 2];
         }
     };
 

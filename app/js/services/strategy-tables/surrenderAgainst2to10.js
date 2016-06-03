@@ -1,8 +1,5 @@
-BlackJack.factory('surrenderAgainst2to10', function () {
+BlackJack.service('surrenderAgainst2to10', function () {
 
-    var Tables = function () {
-
-    };
     var hit = "May I suggest you to Hit, sir?";
     var stand = "If I was in your place, I would Stand";
     var split = "Can I just say you should Split";
@@ -11,7 +8,7 @@ BlackJack.factory('surrenderAgainst2to10', function () {
     var surrenderOtherwiseHit = "You have no choice but to Surrender otherwise Hit";
 
 
-    Tables.prototype.hardTable = [
+    this.hardTable = [
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
@@ -30,7 +27,7 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
-    Tables.prototype.softTable = [
+    this.softTable = [
         [hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
         [hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
         [hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
@@ -41,7 +38,7 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
-    Tables.prototype.pairTable = [
+    this.pairTable = [
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
@@ -52,7 +49,5 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [split, split, split, split, split, stand, split, split, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [split, split, split, split, split, split, split, split, split, split]];
-
-    return Tables;
 
 });
