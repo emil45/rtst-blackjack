@@ -13,7 +13,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
 
     $scope.dealCards = function () {
         $scope.deck = new Deck($scope.numOfDecks);
-        $scope.deck.shuffle();
 
         $scope.dealerCards = [];
         $scope.dealerHandSum = 0;
