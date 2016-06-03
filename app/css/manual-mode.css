@@ -1,0 +1,86 @@
+.manual-switch {
+    position: relative;
+    display: inline-block;
+    border: 2px solid #fff;
+    vertical-align: top;
+    width: 56px;
+    height: 25px;
+    padding: 1px;
+    cursor: pointer;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+}
+
+.switch-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.switch-label {
+    position: relative;
+    display: block;
+    height: inherit;
+    font-size: 10px;
+    text-transform: uppercase;
+    border-radius: inherit;
+    -moz-transition: ease-out 0.15s;
+    -o-transition: ease-out 0.15s;
+    -webkit-transition: ease-out 0.15s;
+    transition: ease-out 0.15s;
+    -moz-transition-property: opacity, background;
+    -o-transition-property: opacity, background;
+    -webkit-transition-property: opacity, background;
+    transition-property: opacity background;
+}
+.switch-label:before, .switch-label:after {
+    position: absolute;
+    top: 50%;
+    margin-top: -.5em;
+    line-height: 1;
+    -moz-transition: inherit;
+    -o-transition: inherit;
+    -webkit-transition: inherit;
+    transition: inherit;
+}
+.switch-label:before {
+    content: attr(data-off);
+    right: 8px;
+    color: white;
+}
+.switch-label:after {
+    content: attr(data-on);
+    left: 10px;
+    color: white;
+    opacity: 0;
+}
+.switch-label:disabled {
+    background-color: grey;
+}
+.switch-input:checked ~ .switch-label:before {
+    opacity: 0;
+}
+.switch-input:checked ~ .switch-label:after {
+    opacity: 1;
+}
+
+.switch-handle {
+    position: absolute;
+    top: 1px;
+    left: 0px;
+    width: 19px;
+    height: 19px;
+    background: white;
+    -moz-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    border-radius: 30px;
+    -moz-transition: left 0.15s ease-out;
+    -o-transition: left 0.15s ease-out;
+    -webkit-transition: left 0.15s ease-out;
+    transition: left 0.15s ease-out;
+}
+.switch-input:checked ~ .switch-handle {
+    left: 33px;
+}

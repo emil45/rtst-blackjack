@@ -6,7 +6,8 @@
     <!-- CSS -->
     <link rel="stylesheet" href="css/materialize/materialize.min.css">
     <link rel="stylesheet" href="css/materialize/material-icons.css">
-    <link rel="stylesheet" href="css/custom-button.css">
+    <link rel="stylesheet" href="css/white-line-button.css">
+    <link rel="stylesheet" href="css/manual-mode.css">
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/cards.css">
@@ -24,59 +25,77 @@
     <script src="js/services/strategy-tables/surrenderAgainst2to10.js"></script>
 
 </head>
-    <body ng-controller="ngGame" style="">
-        <div class="button-holder rules" ng-click="openRulesModal()">
-            <a class="custom-button outline" href="#">
-                Rules
-                <span class="lines"></span>
-            </a>
-        </div>
-        <div class="button-holder team" ng-click="openTeamModal()">
-            <a class="custom-button outline" href="#">
-                The Team
-                <span class="lines"></span>
-            </a>
+    <body ng-controller="ngGame">
+        <div class="container">
+            <div class="row" style="padding-top: 4%">
+                <div class="col l2 m2" ng-click="openRulesModal()">
+                    <a class="custom-button outline" href="#">
+                        Rules
+                        <span class="lines"></span>
+                    </a>
+                </div>
+                <div class="offset-l8 offset-m8 col l2 m2" ng-click="openTeamModal()">
+                    <a class="custom-button outline" href="#">
+                        The Team
+                        <span class="lines"></span>
+                    </a>
+                </div>
+            </div>
         </div>
         <div id="background-image" class="container centered">
+            <div class="row"></div>
             <div class="row">
-                <div class="offset-l5 col l6 offset-m5 col m6 cards-rows">
-                    <div class="playingCards faceImages rotateHand">
-                        <ul class="table">
-                            <li ng-repeat="(key, card) in dealerCards">
-                                <a class="card animated fadeInRight rank-{{card.getRank()}} {{card.suit}}" style="animation-duration: {{key+2}}s;">
-                                    <span class="rank">{{card.getRank()}}</span>
-                                    <span class="suit"></span>
-                                </a>
-                            </li>
-                        </ul>
+                <div class="col l3 m3 manual-mode-box">
+                    <span class="manual-mode-text">Manual Mode: </span>
+                        <label class="manual-switch">
+                            <input type="checkbox" class="switch-input">
+                            <span class="switch-label" data-on="On" data-off="Off" ng-click="toggleManualMode()"></span>
+                            <span class="switch-handle"></span>
+                        </label>
+                </div>
+                <div class="offset-l1 col l6 offset-m1 m6 cards-rows" style="padding-top: 10px;">
+                    <div>
+                        <div class="playing-card-parent-div" ng-repeat="(key, card) in dealerCards">
+                            <div class="playing-card rank-{{card.rank}} {{card.suit}} animated fadeInRight" style="animation-duration: {{key+2}}s;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col l2 m2">
+                    <div ng-show="dealFirstTimeForAdvice" class="advice advice-hover tooltipped" data-position="down" data-delay="100" data-tooltip={{getAdvice()}}>
+                        <div class="animated fadeIn advice-fade" ng-class="{'fadeOut': !showAdvice}">
+                            <a class="custom-button outline animated shake advice-shake">
+                                <div>
+                                    <span>Advice</span>
+                                </div>
+                                <span class="lines"></span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row"></div>
             <div class="row center">
                 <div>
-                    <a class="no-hover custom-button outline">
+                    <a class="sum-boxes no-hover custom-button outline">
                         <span>Dealer Sum of Cards: {{dealerHandSum}}</span>
                         <span class="lines"></span>
                     </a>
                 </div>
             </div>
             <div class="row">
-                <div class="offset-l4 col l7 offset-m4 col m7 cards-rows">
-                    <div class="playingCards faceImages rotateHand">
-                        <ul class="table cards-hand">
-                            <li ng-repeat="(key, card) in player.hand">
-                                <a class="card animated fadeInLeft rank-{{card.getRank()}} {{card.suit}}" style="animation-duration: {{key+1}}s;">
-                                    <span class="rank">{{card.getRank()}}</span>
-                                    <span class="suit"></span>
-                                </a>
-                            </li>
-                        </ul>
+                <div class="col offset-l4 l7 offset-m4 m7 cards-rows">
+                    <div>
+                        <div class="playing-card-parent-div" ng-repeat="(key, card) in player.hand">
+                            <div class="playing-card rank-{{card.rank}} {{card.suit}} animated fadeInRight" style="animation-duration: {{key+2}}s;">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row center">
                 <div>
-                    <a class="no-hover custom-button outline">
+                    <a class="sum-boxes no-hover custom-button outline">
                         <span>Player Sum of Cards: {{player.handSum}}</span>
                         <span class="lines"></span>
                     </a>
@@ -115,22 +134,25 @@
             </div>
         </div>
 
-        <div class="advice advice-hover tooltipped animated shake infinite" style="animation-delay: 5s; animation-duration: 5s;" data-position="right" data-delay="100" data-tooltip={{getAdvice()}}>
-            <a class="custom-button outline">
-                <div>
-                    <span>Advice ?</span>
-                </div>
-                <span class="lines"></span>
-            </a>
-        </div>
-
-        <div class="wins-loses wins-loses-hover">
+        <div class="wins-loses no-hover">
             <a class="custom-button outline">
                 <div>
                     <span>Wins: {{player.wins}}</span>
                 </div>
                 <div>
                     <span>Loses: {{player.loses}}</span>
+                </div>
+                <span class="lines"></span>
+            </a>
+        </div>
+
+        <div class="web-counter no-hover">
+            <a class="custom-button outline">
+                <div>
+                    <span>Visitors</span>
+                </div>
+                <div>
+                    <img src="http://hitwebcounter.com/counter/counter.php?page=6412631&style=0006&nbdigits=5&type=page&initCount=0" title="Free track counters" Alt="Free track counters"   border="0" >
                 </div>
                 <span class="lines"></span>
             </a>
@@ -154,6 +176,40 @@
             <div class="modal-content">
                 <h4>Walla RTST</h4>
                 <p>Talk to me in passover</p>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Digger ...</a>
+            </div>
+        </div>
+
+        <div id="playerChooseCard" class="modal">
+            <div class="modal-content">
+                <h4>Player Card</h4>
+                <div class="row">
+                    <div class="col l2 m2" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13]">
+                        <div class="playing-card-parent-div">
+                            <div ng-click="manualChooseCard(i, 1)" class="playing-card rank-{{i}} hearts animated slideInUp">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Digger ...</a>
+            </div>
+        </div>
+
+        <div id="dealerChooseCard" class="modal">
+            <div class="modal-content">
+                <h4>Dealer Card</h4>
+                <div class="row">
+                    <div class="col l2 m2" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13]">
+                        <div class="playing-card-parent-div">
+                            <div ng-click="manualChooseCard(i, 2)" class="playing-card rank-{{i}} clubs animated slideInUp">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <a class="modal-action modal-close waves-effect waves-green btn-flat ">Digger ...</a>
