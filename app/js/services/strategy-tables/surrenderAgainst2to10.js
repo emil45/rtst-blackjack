@@ -1,4 +1,4 @@
-BlackJack.service('surrenderAgainst2to10', function () {
+BlackJack.service('surrenderTables', function () {
 
     var hit = "May I suggest you to Hit, sir?";
     var stand = "If I was in your place, I would Stand";
@@ -6,7 +6,14 @@ BlackJack.service('surrenderAgainst2to10', function () {
     var doubleOtherwiseHit = "You should Double otherwise Hit, no doubt about it";
     var doubleOtherwiseStand = "A wise man once said Double otherwise stand";
     var surrenderOtherwiseHit = "You have no choice but to Surrender otherwise Hit";
-
+    //this offset tells up in what number the array starts
+    //we need it when we gonna use data from array
+    this.offsets = {
+        dealer : 2 ,
+        pairTable : 1,
+        softTable : 13,
+        hardTable :5
+    };
 
     this.hardTable = [
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
