@@ -8,8 +8,28 @@ BlackJack.factory('Player', function () {
         this.hand = [];
     };
 
+    function sumArrayOfCards(arrayOfCards)
+    {
+        var sumOfCards = 0;
+        var acesCount = 0;
+        angular.forEach(arrayOfCards, function (card) {
+            if(card.rank == 1)
+            {
+                acesCount++;
+            }
+            sumOfCards += card.realValue();
+        });
+        //To calculate if Ace will count as 11 or 1
+        if(sumOfCards < 12 && acesCount > 0)
+        {
+            sumOfCards += 10;
+        }
+        return sumOfCards
+    }
+
     Player.prototype.takeCard = function (newCard) {
         this.hand.push(newCard);
+        this.handSum  = sumArrayOfCards(this.hand);
     };
 
     Player.prototype.numberOfCards = function () {

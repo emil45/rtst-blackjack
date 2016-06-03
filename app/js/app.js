@@ -82,16 +82,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         playerLost();
     };
 
-    $scope.$watchCollection('player.hand', function (newValue)
-    {
-        $scope.player.handSum = getPlayerSumOfCards(newValue);
-    });
-
-    $scope.$watchCollection('dealer.hand', function (newValue)
-    {
-        $scope.dealer.handSum = getDealerSumOfCards(newValue);
-    });
-
     $scope.$watch('player.handSum',function(newSum)
     {
         if(newSum > 21)
@@ -109,12 +99,10 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         // Check who activated the function - the player (whoPlaying = 1) or the dealer (whoPlaying = 2)
         if (whoPlaying == 1) {
             $scope.player.takeCard(card);
-            $scope.player.handSum = getPlayerSumOfCards();
             $("#playerChooseCard").closeModal();
         }
         else {
             $scope.dealer.takeCard(card);
-            $scope.dealer.handSum = getDealerSumOfCards();
             $("#dealerChooseCard").closeModal();
         }
 
@@ -123,7 +111,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     function dealerHitCard() {
         if ($scope.manualMode == false) {
             $scope.dealer.takeCard($scope.deck.popCard());
-            $scope.dealer.handSum = getDealerSumOfCards();
         }
         else {
             $("#dealerChooseCard").openModal();
@@ -132,7 +119,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     function playerHitCard() {
         if ($scope.manualMode == false) {
             $scope.player.takeCard($scope.deck.popCard());
-            $scope.player.handSum = getPlayerSumOfCards();
         }
         else {
             $("#playerChooseCard").openModal();
@@ -182,34 +168,5 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         $scope.player.winsHand();
         $scope.showAdvice = false;
         $scope.startGame = false;
-    }
-    function getPlayerSumOfCards() {
-        return sumArrayOfCards($scope.player.hand);
-    }
-    function getDealerSumOfCards() {
-        return sumArrayOfCards($scope.dealer.hand);
-    }
-    function sumArrayOfCards(arrayOfCards)
-    {
-        var sumOfCards = 0;
-        var acesCount = 0;
-        angular.forEach(arrayOfCards, function (card) {
-            if(card.rank == 1)
-            {
-                acesCount++;
-                sumOfCards += 1;
-            }
-            else if(card.rank >= 10)
-            {
-                sumOfCards += 10;
-            }
-            else
-            {sumOfCards += card.rank;}
-        });
-        if(sumOfCards < 12 && acesCount > 0)
-        {
-            sumOfCards += 10;
-        }
-        return sumOfCards
     }
 });
