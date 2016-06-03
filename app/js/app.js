@@ -6,6 +6,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     var strategyTables = new surrenderAgainst2to10();
 
     $scope.dealFirstTimeForAdvice = false;
+    $scope.manualMode = false;
     $scope.showAdvice = false;
     $scope.splitCards = false;
     $scope.startGame = false;
@@ -44,7 +45,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     $scope.getAdvice = function () {
         if($scope.startGame == false){return;}
         if($scope.player.handSum > 21)
-            return "lost";
+            return;
         if($scope.player.numberOfCards() == 2)
         {
            if($scope.player.hand[0].rank == $scope.player.hand[1].rank)
@@ -79,6 +80,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     };
 
     $scope.surrender = function () {
+        Materialize.toast('Only chickens Surrender', 4000);
         dealerHitCard();
         playerLost();
     };
@@ -97,9 +99,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
     {
         if(newSum > 21)
         {
-            $scope.player.lostHand();
-            $scope.showAdvice = false;
-            $scope.startGame = false;
+            playerLost();
         }
     });
 
@@ -115,46 +115,42 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderAga
         if($scope.player.handSum>21)
         {
             playerLost();
-            return "lost";
         }
         else if($scope.player.handSum > $scope.dealerHandSum) //player sum <=21 && player sum > dealer sum
         {
-            if($scope.player.handSum == 21 && $scope.player.numberOfCards()<3)
-            {
-                alert("BALCKJACK!!!!!!!");
+            if($scope.player.handSum == 21 && $scope.player.numberOfCards()<3) {
                 playerWins();
-                return "BlackJack";}
-            else{//player bigger then dealer, player wins
+            }
+            else {
+                // player bigger then dealer, player wins
                 playerWins();
-                return "won";
             }
         }
         else if($scope.dealerHandSum > $scope.player.handSum) {
             if ($scope.dealerHandSum <= 21)
             {
                 playerLost();
-                return "You lose!";
             }else if($scope.dealerHandSum > 21 && $scope.player.handSum<=21)
             {
                 playerWins();
-                return "You win - dealer bust!";
             }
         }
         else if($scope.dealerHandSum == $scope.player.handSum)
         {
-            //no winner
-            alert("no winner today cowboy");
+            // Tie
+            Materialize.toast("It's a tie baby", 4000);
             $scope.showAdvice = false;
             $scope.startGame = false;
-            return "push"
         }
     }
     function playerLost() {
+        Materialize.toast('You lost this one', 4000);
         $scope.player.lostHand();
         $scope.showAdvice = false;
         $scope.startGame = false;
     }
     function playerWins() {
+        Materialize.toast('You won this round', 4000);
         $scope.player.winsHand();
         $scope.showAdvice = false;
         $scope.startGame = false;

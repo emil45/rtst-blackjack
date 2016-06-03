@@ -97,6 +97,7 @@ html {
 }
 
 .advice-shake {
+    padding: 15px 15px !important;
     animation-delay: 10s;
     animation-duration: 2s;
     -vendor-animation-delay: 10s;
@@ -125,4 +126,10 @@ html {
     font-weight: bold;
     letter-spacing: 2px;
     color: white;
+}
+
+.web-counter {
+    bottom: 5%;
+    left: 3%;
+    position: fixed;
 }

@@ -47,22 +47,18 @@
             <div class="row">
                 <div class="col l3 m3 manual-mode-box">
                     <span class="manual-mode-text">Manual Mode: </span>
-                    <label class="switch">
+                    <label class="switch" ng-click="manualMode != manualMode">
                         <input type="checkbox" class="switch-input">
                         <span class="switch-label" data-on="On" data-off="Off"></span>
                         <span class="switch-handle"></span>
                     </label>
                 </div>
-                <div class="offset-l1 col l6 offset-m1 m6 cards-rows">
-                    <div class="playingCards faceImages">
-                        <ul class="table">
-                            <li ng-repeat="(key, card) in dealerCards">
-                                <a class="card animated fadeInRight rank-{{card.getRank()}} {{card.suit}}" style="animation-duration: {{key+2}}s;">
-                                    <span class="rank">{{card.getRank()}}</span>
-                                    <span class="suit"></span>
-                                </a>
-                            </li>
-                        </ul>
+                <div class="offset-l1 col l6 offset-m1 m6 cards-rows" style="padding-top: 10px;">
+                    <div>
+                        <div class="playing-card-parent-div" ng-repeat="(key, card) in dealerCards">
+                            <div class="playing-card rank-{{card.rank}} {{card.suit}} animated fadeInRight" style="animation-duration: {{key+2}}s;">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col l2 m2">
@@ -78,9 +74,10 @@
                     </div>
                 </div>
             </div>
+            <div class="row"></div>
             <div class="row center">
                 <div>
-                    <a class="no-hover custom-button outline">
+                    <a class="sum-boxes no-hover custom-button outline">
                         <span>Dealer Sum of Cards: {{dealerHandSum}}</span>
                         <span class="lines"></span>
                     </a>
@@ -88,21 +85,17 @@
             </div>
             <div class="row">
                 <div class="col offset-l4 l7 offset-m4 m7 cards-rows">
-                    <div class="playingCards faceImages">
-                        <ul class="table cards-hand">
-                            <li ng-repeat="(key, card) in player.hand">
-                                <a class="card animated fadeInRight rank-{{card.getRank()}} {{card.suit}}" style="animation-duration: {{key+1}}s;">
-                                    <span class="rank">{{card.getRank()}}</span>
-                                    <span class="suit"></span>
-                                </a>
-                            </li>
-                        </ul>
+                    <div>
+                        <div class="playing-card-parent-div" ng-repeat="(key, card) in player.hand">
+                            <div class="playing-card rank-{{card.rank}} {{card.suit}} animated fadeInRight" style="animation-duration: {{key+2}}s;">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row center">
                 <div>
-                    <a class="no-hover custom-button outline">
+                    <a class="sum-boxes no-hover custom-button outline">
                         <span>Player Sum of Cards: {{player.handSum}}</span>
                         <span class="lines"></span>
                     </a>
@@ -148,6 +141,18 @@
                 </div>
                 <div>
                     <span>Loses: {{player.loses}}</span>
+                </div>
+                <span class="lines"></span>
+            </a>
+        </div>
+
+        <div class="web-counter no-hover">
+            <a class="custom-button outline">
+                <div>
+                    <span>Visitors</span>
+                </div>
+                <div>
+                    <img src="http://hitwebcounter.com/counter/counter.php?page=6412631&style=0006&nbdigits=5&type=page&initCount=0" title="Free track counters" Alt="Free track counters"   border="0" >
                 </div>
                 <span class="lines"></span>
             </a>

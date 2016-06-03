@@ -57,3 +57,7 @@
 .custom-button:hover .lines:after {
     transform: translateY(100%);
 }
+
+.sum-boxes {
+    padding: 10px 15px;
+}
