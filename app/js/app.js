@@ -40,23 +40,23 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.getAdvice = function () {
-        if($scope.startGame == false){return;}
-        if($scope.player.hand.sum() > 21)
+        if($scope.startGame == false || $scope.player.hands[0].numOfCards() < 2|| $scope.dealer.hands[0].numOfCards() < 1){return;}
+        if($scope.player.hands[0].sum() > 21)
             return;
-        if($scope.player.hand.numOfCards() == 2)
+        if($scope.player.hands[0].numOfCards() == 2)
         {
-           if($scope.player.hand.cards[0].rank == $scope.player.hand.cards[1].rank)
+           if($scope.player.hands[0].cards[0].rank == $scope.player.hands[0].cards[1].rank)
            {
-               return surrenderTables.pairTable[$scope.player.hand.cards[0].realValue() - surrenderTables.offsets.pairTable][$scope.dealer.hand.sum() - surrenderTables.offsets.dealer];
+               return surrenderTables.pairTable[$scope.player.hands[0].cards[0].realValue() - surrenderTables.offsets.pairTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
            }
         }
-        if($scope.player.hand.isSoft())
+        if($scope.player.hands[0].isSoft())
         {
-            return surrenderTables.softTable[$scope.player.hand.sum() - surrenderTables.offsets.softTable][$scope.dealer.hand.sum() - surrenderTables.offsets.dealer];
+            return surrenderTables.softTable[$scope.player.hands[0].sum() - surrenderTables.offsets.softTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
         }
         else //hand is Hard
         {
-            return surrenderTables.hardTable[$scope.player.hand.sum() - surrenderTables.offsets.hardTable][$scope.dealer.hand.sum() - surrenderTables.offsets.dealer];
+            return surrenderTables.hardTable[$scope.player.hands[0].sum() - surrenderTables.offsets.hardTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
         }
     };
 
@@ -64,7 +64,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
         dealerHitCard();
 
-        while($scope.dealer.hand.sum() < 17 && $scope.player.hand.sum() <= 21)
+        while($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21)
         {
             dealerHitCard();
         }
@@ -90,15 +90,15 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         var card = $scope.deck.getSpecificCardByRank(rank);
         // Check who activated the function - the player (whoPlaying = 1) or the dealer (whoPlaying = 2)
         if (whoPlaying == 1) {
-            $scope.player.hand.take(card);
+            $scope.player.hands[0].take(card);
             $("#playerChooseCard").closeModal();
         }
         else {
-            $scope.dealer.hand.take(card);
+            $scope.dealer.hands[0].take(card);
             $("#dealerChooseCard").closeModal();
         }
     };
-    $scope.$watch('player.hand.sum()',function(newSum)
+    $scope.$watch('player.hands[0].sum()',function(newSum)
     {
         if(newSum > 21)
         {
@@ -108,29 +108,32 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
     function dealerHitCard() {
         if ($scope.manualMode == false) {
-            $scope.dealer.hand.take($scope.deck.popCard());
+            $scope.dealer.hands[0].take($scope.deck.popCard());
         }
         else {
+            console.log("dealer hit card");
             $("#dealerChooseCard").openModal();
         }
     }
     function playerHitCard() {
         if ($scope.manualMode == false) {
-            $scope.player.hand.take($scope.deck.popCard());
+            //$scope.player.hands[0].take($scope.deck.popCard());
+            $scope.player.hands[0].take($scope.deck.popCard());
         }
         else {
+            console.log("player hit card");
             $("#playerChooseCard").openModal();
         }
 
     }
     function checkWinner() {
-        if($scope.player.hand.sum() > 21)
+        if($scope.player.hands[0].sum() > 21)
         {
             playerLost();
         }
-        else if($scope.player.hand.sum() > $scope.dealer.hand.sum()) //player sum <=21 && player sum > dealer sum
+        else if($scope.player.hands[0].sum() > $scope.dealer.hands[0].sum()) //player sum <=21 && player sum > dealer sum
         {
-            if($scope.player.hand.sum() == 21 && $scope.player.hand.numOfCards()<3) {
+            if($scope.player.hands[0].sum() == 21 && $scope.player.hands[0].numOfCards()<3) {
                 playerWins();
             }
             else {
@@ -138,16 +141,16 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
                 playerWins();
             }
         }
-        else if($scope.dealer.hand.sum() > $scope.player.hand.sum()) {
-            if ($scope.dealer.hand.sum() <= 21)
+        else if($scope.dealer.hands[0].sum() > $scope.player.hands[0].sum()) {
+            if ($scope.dealer.hands[0].sum() <= 21)
             {
                 playerLost();
-            }else if($scope.dealer.hand.sum() > 21 && $scope.player.hand.sum()<=21)
+            }else if($scope.dealer.hands[0].sum() > 21 && $scope.player.hands[0].sum()<=21)
             {
                 playerWins();
             }
         }
-        else if($scope.dealer.hand.sum() == $scope.player.hand.sum())
+        else if($scope.dealer.hands[0].sum() == $scope.player.hands[0].sum())
         {
             // Tie
             Materialize.toast("It's a tie baby", 4000);

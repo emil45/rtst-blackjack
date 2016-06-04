@@ -6,7 +6,7 @@ BlackJack.factory('Hand', function () {
 
     Hand.prototype.take = function (card) {
         this.cards.push(card);
-    }
+    };
 
     Hand.prototype.sum = function () {
         return sumArrayOfCards(this.cards);
