@@ -84,16 +84,17 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.manualMode = !$scope.manualMode;
     };
 
-    $scope.manualChooseCard = function (card, whoPlaying) {
-        $scope.clickedCard = card;
-        // Check who activated the function - the dealer (whoPlaying = 1) or the player (whoPlaying = 2)
-        if (whoPlaying == 1) {
-            $("#dealerChooseCard").openModal();
+    $scope.manualChooseCardForHiddenCard = function (card, whoPlaying) {
+        if (card.isHidden()) {
+            $scope.clickedCard = card;
+            // Check who activated the function - the dealer (whoPlaying = 1) or the player (whoPlaying = 2)
+            if (whoPlaying == 1) {
+                $("#dealerChooseCard").openModal();
+            }
+            else {
+                $("#playerChooseCard").openModal();
+            }
         }
-        else {
-            $("#playerChooseCard").openModal();
-        }
-
     };
     
     $scope.manualChooseCardModal = function (rank) {
@@ -110,7 +111,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     
     $scope.hideCardOrShow = function (card) {
         var classForDiv = 'rank-' + card.rank + ' ' + card.suit;
-        if (card.hide == true) {
+        if (card.isHidden()) {
             classForDiv += ' hideCard animated pulse';
         }
         return classForDiv
@@ -129,7 +130,12 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             $scope.dealer.hands[0].take($scope.deck.popCard());
         }
         else {
-            $scope.dealer.hands[0].take($scope.deck.popCard(), true);
+            if ($scope.dealer.hands[0].hasHiddenCard()) {
+                Materialize.toast("You already have a card, you greedy", 4000);
+            }
+            else {
+                $scope.dealer.hands[0].take($scope.deck.getFakeCard(), true);
+            }
         }
     }
     function playerHitCard() {
@@ -137,7 +143,12 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             $scope.player.hands[0].take($scope.deck.popCard());
         }
         else {
-            $scope.player.hands[0].take($scope.deck.popCard(), true);
+            if ($scope.player.hands[0].hasHiddenCard() && $scope.player.hands.numOfCards() >= 2) {
+                Materialize.toast("You already have a card, you greedy", 4000);
+            }
+            else {
+                $scope.player.hands[0].take($scope.deck.getFakeCard(), true);
+            }
         }
 
     }

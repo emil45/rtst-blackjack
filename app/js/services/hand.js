@@ -4,8 +4,8 @@ BlackJack.factory('Hand', function () {
         this.cards = [];
     };
 
-    Hand.prototype.take = function (card, isHidden) {
-        if (isHidden == true)
+    Hand.prototype.take = function (card, hideCard) {
+        if (hideCard == true)
         {
             card.hideCard();
         }
@@ -42,6 +42,13 @@ BlackJack.factory('Hand', function () {
         {
             return true;
         }
+        return false;
+    };
+
+    Hand.prototype.hasHiddenCard = function () {
+        angular.forEach(this.cards, function (card) {
+           if (card.isHidden()) {return true;}
+        });
         return false;
     };
 
