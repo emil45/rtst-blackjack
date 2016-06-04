@@ -106,7 +106,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     
     $scope.manualChooseCardModal = function (rank) {
         var card = $scope.deck.getSpecificCardByRank(rank);
-        // Check who activated the function - the dealer (whoPlaying = 1) or the player (whoPlaying = 2)
         $scope.clickedCard.rank = card.rank;
         $scope.clickedCard.suit = card.suit;
         $scope.clickedCard.showCard();
@@ -128,14 +127,21 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     {
         if(newSum > 21)
         {
+            console.log(newSum);
             playerLost();
         }
-        else if(21 == newSum && $scope.player.hands[0].numOfCards() == 2) {
-            if($scope.dealer.hands[0].sum()>0)
-            {
-                if($scope.dealer.hands[0].cards[0].hide == false) {
+        if(newSum == 21 && $scope.player.hands[0].numOfCards() == 2) {
+            if ($scope.dealer.hands[0].sum() > 0) {
+                if ($scope.dealer.hands[0].cards[0].hide == false) {
+                    $scope.dealer.hands[0].take($scope.deck.popCard());
                     playerWinsBlackJack();
                 }
+            }
+            else{ //sum == 0
+                $scope.dealer.hands[0].cards[0] = $scope.deck.popCard();
+                $scope.dealer.hands[0].cards[0].showCard();
+                $scope.dealer.hands[0].take($scope.deck.popCard());
+                playerWinsBlackJack();
             }
         }
     });
