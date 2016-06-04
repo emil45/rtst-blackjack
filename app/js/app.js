@@ -41,7 +41,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.getAdvice = function () {
-        if($scope.startGame == false || $scope.player.hands[0].sum() ==0 || $scope.dealer.hands[0].sum() == 0){return;}
+        if($scope.startGame == false  || $scope.dealer.hands[0].sum() == 0||($scope.player.hands[0].numOfCards()==2 && $scope.player.hands[0].hasHiddenCard())){return;}
         if($scope.player.hands[0].sum() > 21)
             return;
         if($scope.player.hands[0].isPair())
