@@ -36,6 +36,10 @@ BlackJack.factory('Deck', function (Card) {
         }
         return deckToShuffle;
     }
+
+    Deck.prototype.getFakeCard = function () {
+        return new Card(0, "fake");
+    };
     
     Deck.prototype.popCard = function () {
         return this.deck.pop();

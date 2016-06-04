@@ -5,6 +5,7 @@ BlackJack.factory('Card', function () {
         this.suit = suit;
         this.hide = false;
     };
+
     Card.prototype.realValue = function () {
         if(this.rank<=13 && this.rank>=10){
             return 10;
@@ -12,12 +13,18 @@ BlackJack.factory('Card', function () {
         else{return this.rank}
 
     };
+
     Card.prototype.showCard = function () {
         this.hide = false;
     };
 
     Card.prototype.hideCard = function () {
         this.hide = true;
+    };
+
+    Card.prototype.isHidden = function () {
+        return this.hide;
+
     };
 
     return Card;

@@ -57,7 +57,7 @@
                 <div class="offset-l1 col l6 offset-m1 m6 cards-rows" style="padding-top: 10px;">
                     <div>
                         <div class="playing-card-parent-div animated fadeInRight" ng-repeat="(key, card) in dealer.hands[0].cards" style="animation-duration: {{key+2}}s;">
-                            <div class="playing-card" ng-click="manualChooseCard(card, 1)" ng-class="hideCardOrShow(card)"></div>
+                            <div class="playing-card" ng-click="manualChooseCardForHiddenCard(card, 1)" ng-class="hideCardOrShow(card)"></div>
                         </div>
                     </div>
                 </div>
@@ -87,7 +87,7 @@
                 <div class="col offset-l4 l7 offset-m4 m7 cards-rows">
                     <div ng-repeat="hand in player.hands">
                         <div class="playing-card-parent-div animated fadeInRight" ng-repeat="(key, card) in hand.cards" style="animation-duration: {{key+2}}s;">
-                            <div class="playing-card" ng-click="manualChooseCard(card, 2)" ng-class="hideCardOrShow(card)"></div>
+                            <div class="playing-card" ng-click="manualChooseCardForHiddenCard(card, 2)" ng-class="hideCardOrShow(card)"></div>
                         </div>
 
                     </div>
@@ -184,9 +184,9 @@
 
         <div id="dealerChooseCard" class="modal bottom-sheet" style="background-color: #DFDFDF">
             <div class="modal-content">
-                <h4>Dealer Card</h4>
+                <h4>Choose card for dealer</h4>
                 <div class="row">
-                    <div class="col l1 m1 manual-card-modal" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13]">
+                    <div class="col l1 m1 manual-card-modal-div" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13]">
                         <div class="playing-card-parent-div">
                             <div ng-click="manualChooseCardModal(i)" class="playing-card rank-{{i}} clubs animated slideInUp">
                             </div>
@@ -198,9 +198,9 @@
 
         <div id="playerChooseCard" class="modal bottom-sheet" style="background-color: #DFDFDF">
             <div class="modal-content">
-                <h4>Player Card</h4>
+                <h4>Choose your card</h4>
                 <div class="row">
-                    <div class="col l1 m1 manual-card-modal" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13]">
+                    <div class="col l1 m1 manual-card-modal-div" ng-repeat="i in [1,2,3,4,5,6,7,8,9,10,11,12,13]">
                         <div class="playing-card-parent-div">
                             <div ng-click="manualChooseCardModal(i)" class="playing-card rank-{{i}} hearts animated slideInUp">
                             </div>
