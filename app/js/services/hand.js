@@ -46,10 +46,11 @@ BlackJack.factory('Hand', function () {
     };
 
     Hand.prototype.hasHiddenCard = function () {
+        var result = false;
         angular.forEach(this.cards, function (card) {
-           if (card.isHidden()) {return true;}
+           if (card.isHidden()) {result = true;}
         });
-        return false;
+        return result;
     };
 
     function sumArrayOfCards(arrayOfCards)
