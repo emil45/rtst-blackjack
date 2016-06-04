@@ -43,12 +43,9 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         if($scope.startGame == false || $scope.player.hands[0].numOfCards() < 2|| $scope.dealer.hands[0].numOfCards() < 1){return;}
         if($scope.player.hands[0].sum() > 21)
             return;
-        if($scope.player.hands[0].numOfCards() == 2)
+        if($scope.player.hands[0].isPair())
         {
-           if($scope.player.hands[0].cards[0].rank == $scope.player.hands[0].cards[1].rank)
-           {
-               return surrenderTables.pairTable[$scope.player.hands[0].cards[0].realValue() - surrenderTables.offsets.pairTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
-           }
+            return surrenderTables.pairTable[$scope.player.hands[0].cards[0].realValue() - surrenderTables.offsets.pairTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
         }
         if($scope.player.hands[0].isSoft())
         {

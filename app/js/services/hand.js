@@ -15,6 +15,17 @@ BlackJack.factory('Hand', function () {
     Hand.prototype.numOfCards = function () {
       return this.cards.length;
     };
+    Hand.prototype.isPair = function () {
+        if(this.numOfCards() == 2)
+        {
+            if(this.cards[0].rank == this.cards[1].rank)
+            {
+                return true;
+            }
+        }
+        return false;
+    };
+    
     Hand.prototype.isSoft = function () {
         var sum = 0;
         var foundAce =false;
