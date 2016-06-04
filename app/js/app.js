@@ -182,14 +182,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         }
         else if($scope.player.hands[0].sum() > $scope.dealer.hands[0].sum()) //player sum <=21 && player sum > dealer sum
         {
-            if($scope.player.hands[0].sum() == 21 && $scope.player.hands[0].numOfCards()<3) {
-                //BlackJack!!!!
-                playerWins();
-            }
-            else {
-                // player bigger then dealer, player wins
-                playerWins();
-            }
+            playerWins();
         }
         else if($scope.dealer.hands[0].sum() > $scope.player.hands[0].sum()) {
             if ($scope.dealer.hands[0].sum() <= 21)
