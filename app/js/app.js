@@ -4,6 +4,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
 
     $scope.dealFirstTimeForAdvice = false;
+    $scope.clickedCard = "";
     $scope.manualMode = false;
     $scope.showAdvice = false;
     $scope.splitCards = false;
@@ -82,19 +83,39 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.toggleManualMode = function() {
         $scope.manualMode = !$scope.manualMode;
     };
-    
-    $scope.manualChooseCard = function (rank, whoPlaying) {
-        var card = $scope.deck.getSpecificCardByRank(rank);
-        // Check who activated the function - the player (whoPlaying = 1) or the dealer (whoPlaying = 2)
+
+    $scope.manualChooseCard = function (card, whoPlaying) {
+        $scope.clickedCard = card;
+        // Check who activated the function - the dealer (whoPlaying = 1) or the player (whoPlaying = 2)
         if (whoPlaying == 1) {
-            $scope.player.hands[0].take(card);
-            $("#playerChooseCard").closeModal();
+            $("#dealerChooseCard").openModal();
         }
         else {
-            $scope.dealer.hands[0].take(card);
-            $("#dealerChooseCard").closeModal();
+            $("#playerChooseCard").openModal();
         }
+
     };
+    
+    $scope.manualChooseCardModal = function (rank) {
+        var card = $scope.deck.getSpecificCardByRank(rank);
+        // Check who activated the function - the dealer (whoPlaying = 1) or the player (whoPlaying = 2)
+        $scope.clickedCard.rank = card.rank;
+        $scope.clickedCard.suit = card.suit;
+        $scope.clickedCard.showCard();
+        $scope.clickedCard = NaN;
+        $("#dealerChooseCard").closeModal();
+        $("#playerChooseCard").closeModal();
+
+    };
+    
+    $scope.hideCardOrShow = function (card) {
+        var classForDiv = 'rank-' + card.rank + ' ' + card.suit;
+        if (card.hide == true) {
+            classForDiv += ' hideCard animated pulse';
+        }
+        return classForDiv
+    };
+    
     $scope.$watch('player.hands[0].sum()',function(newSum)
     {
         if(newSum > 21)
@@ -108,7 +129,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             $scope.dealer.hands[0].take($scope.deck.popCard());
         }
         else {
-            $("#dealerChooseCard").openModal();
+            $scope.dealer.hands[0].take($scope.deck.popCard(), true);
         }
     }
     function playerHitCard() {
@@ -116,7 +137,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             $scope.player.hands[0].take($scope.deck.popCard());
         }
         else {
-            $("#playerChooseCard").openModal();
+            $scope.player.hands[0].take($scope.deck.popCard(), true);
         }
 
     }

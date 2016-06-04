@@ -133,3 +133,8 @@ html {
     left: 3%;
     position: fixed;
 }
+
+.manual-card-modal {
+    padding: 0 !important;
+    width: 7.6% !important;
+}

@@ -54,6 +54,16 @@
 .playing-card.rank-12.diams { background-image: url(../img/cards/12d.png); }
 .playing-card.rank-13.diams { background-image: url(../img/cards/13d.png); }
 
+.playing-card.hideCard {
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    -vendor-animation-duration: 2s;
+    -vendor-animation-iteration-count: infinite;
+    background-image: url(../img/cards/back.png) !important;
+    box-shadow: 0 0 15px 3px #BFA2A2;
+    cursor: hand;
+}
+
 .playing-card {
     background-repeat: no-repeat;
     background-size: contain;

@@ -11,7 +11,7 @@ BlackJack.factory('Card', function () {
         }
         else{return this.rank}
 
-    }
+    };
     Card.prototype.showCard = function () {
         this.hide = false;
     };
