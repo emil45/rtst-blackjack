@@ -1,17 +1,21 @@
-BlackJack.factory('surrenderAgainst2to10', function () {
+BlackJack.service('surrenderTables', function () {
 
-    var Tables = function () {
-
-    };
     var hit = "May I suggest you to Hit, sir?";
     var stand = "If I was in your place, I would Stand";
     var split = "Can I just say you should Split";
     var doubleOtherwiseHit = "You should Double otherwise Hit, no doubt about it";
     var doubleOtherwiseStand = "A wise man once said Double otherwise stand";
     var surrenderOtherwiseHit = "You have no choice but to Surrender otherwise Hit";
+    //this offset tells up in what number the array starts
+    //we need it when we gonna use data from array
+    this.offsets = {
+        dealer : 2 ,
+        pairTable : 1,
+        softTable : 13,
+        hardTable :5
+    };
 
-
-    Tables.prototype.hardTable = [
+    this.hardTable = [
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
@@ -30,7 +34,7 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
-    Tables.prototype.softTable = [
+    this.softTable = [
         [hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
         [hit, hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
         [hit, hit, doubleOtherwiseHit, doubleOtherwiseHit, doubleOtherwiseHit, hit, hit, hit, hit, hit],
@@ -41,7 +45,7 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
-    Tables.prototype.pairTable = [
+    this.pairTable = [
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
@@ -52,7 +56,5 @@ BlackJack.factory('surrenderAgainst2to10', function () {
         [split, split, split, split, split, stand, split, split, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [split, split, split, split, split, split, split, split, split, split]];
-
-    return Tables;
 
 });

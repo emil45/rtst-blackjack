@@ -5,6 +5,7 @@ BlackJack.factory('Deck', function (Card) {
 
     var Deck  = function (numOfDecks) {
         this.deck = generateDeck(numOfDecks);
+        this.deck = shuffleDeck(this.deck);
     };
 
     function generateDeck (numOfDecks) {
@@ -21,19 +22,21 @@ BlackJack.factory('Deck', function (Card) {
         return newDeck;
     }
 
-    Deck.prototype.shuffle = function () {
-        var deckLength = this.deck.length;
+    function shuffleDeck(deckToShuffle)
+    {
+        var deckLength = deckToShuffle.length;
         var i, t;
 
         while (deckLength) {
             i = Math.floor(Math.random() * deckLength--);
 
-            t = this.deck[deckLength];
-            this.deck[deckLength] = this.deck[i];
-            this.deck[i] = t;
+            t = deckToShuffle[deckLength];
+            deckToShuffle[deckLength] = deckToShuffle[i];
+            deckToShuffle[i] = t;
         }
-    };
-
+        return deckToShuffle;
+    }
+    
     Deck.prototype.popCard = function () {
         return this.deck.pop();
     };
