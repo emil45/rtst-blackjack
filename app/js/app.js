@@ -63,8 +63,9 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         if($scope.manualMode)
         {
             if($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21)
-            {dealerHitCard();
-            return;}
+            {
+                dealerHitCard();
+            }
         }
         else {
             dealerHitCard();
@@ -162,18 +163,17 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         }
     }
     function playerHitCard() {
-        if ($scope.manualMode == false) {
-            $scope.player.hands[0].take($scope.deck.popCard());
+        if ($scope.player.hands[0].hasHiddenCard() && $scope.player.hands[0].numOfCards() >= 2) {
+            Materialize.toast("You already have a card, greedy bastard", 4000);
         }
         else {
-            if ($scope.player.hands[0].hasHiddenCard() && $scope.player.hands[0].numOfCards() >= 2) {
-                Materialize.toast("You already have a card, greedy bastard", 4000);
+            if ($scope.manualMode == false) {
+                $scope.player.hands[0].take($scope.deck.popCard());
             }
             else {
                 $scope.player.hands[0].take($scope.deck.getFakeCard(), true);
             }
         }
-
     }
     function checkWinner() {
         if($scope.player.hands[0].sum() > 21)
