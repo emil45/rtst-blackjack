@@ -41,7 +41,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.getAdvice = function () {
-        if($scope.startGame == false || $scope.player.hands[0].numOfCards() < 2|| $scope.dealer.hands[0].numOfCards() < 1){return;}
+        if($scope.startGame == false || $scope.player.hands[0].sum() ==0 || $scope.dealer.hands[0].sum() == 0){return;}
         if($scope.player.hands[0].sum() > 21)
             return;
         if($scope.player.hands[0].isPair())
@@ -60,13 +60,20 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
     $scope.stand = function () {
 
-        dealerHitCard();
-
-        while($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21)
+        if($scope.manualMode)
         {
-            dealerHitCard();
+            if($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21)
+            {dealerHitCard();
+            return;}
         }
-        checkWinner();
+        else {
+            dealerHitCard();
+
+            while ($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21) {
+                dealerHitCard();
+            }
+            checkWinner();
+        }
     };
 
     $scope.double = function () {
@@ -121,6 +128,14 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         if(newSum > 21)
         {
             playerLost();
+        }
+        else if(21 == newSum && $scope.player.hands[0].numOfCards() == 2) {
+            if($scope.dealer.hands[0].sum()>0)
+            {
+                if($scope.dealer.hands[0].cards[0].hide == false) {
+                    playerWinsBlackJack();
+                }
+            }
         }
     });
 
@@ -180,8 +195,15 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.showAdvice = false;
         $scope.startGame = false;
     }
+
     function playerWins() {
         Materialize.toast('You won this round', 4000);
+        $scope.player.winsHand();
+        $scope.showAdvice = false;
+        $scope.startGame = false;
+    }
+    function playerWinsBlackJack() {
+        Materialize.toast('BlackJack!!', 4000);
         $scope.player.winsHand();
         $scope.showAdvice = false;
         $scope.startGame = false;
