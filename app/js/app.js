@@ -203,7 +203,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.startGame = false;
     }
     function playerWinsBlackJack() {
-        Materialize.toast('BlackJack!!', 4000);
+        Materialize.toast('you were born a winner.. BlackJack!', 4000);
         $scope.player.winsHand();
         $scope.showAdvice = false;
         $scope.startGame = false;
