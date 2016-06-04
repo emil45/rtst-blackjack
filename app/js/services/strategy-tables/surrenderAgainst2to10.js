@@ -56,5 +56,4 @@ BlackJack.service('surrenderTables', function () {
         [split, split, split, split, split, stand, split, split, stand, stand],
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
         [split, split, split, split, split, split, split, split, split, split]];
-
 });

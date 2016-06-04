@@ -4,7 +4,11 @@ BlackJack.factory('Hand', function () {
         this.cards = [];
     };
 
-    Hand.prototype.take = function (card) {
+    Hand.prototype.take = function (card, isHidden) {
+        if (isHidden == true)
+        {
+            card.hideCard();
+        }
         this.cards.push(card);
     };
 
@@ -46,11 +50,13 @@ BlackJack.factory('Hand', function () {
         var sumOfCards = 0;
         var acesCount = 0;
         angular.forEach(arrayOfCards, function (card) {
-            if(card.rank == 1)
-            {
-                acesCount++;
+            if (card.hide == false) {
+                if(card.rank == 1)
+                {
+                    acesCount++;
+                }
+                sumOfCards += card.realValue();
             }
-            sumOfCards += card.realValue();
         });
         //To calculate if Ace will count as 11 or 1
         if(sumOfCards < 12 && acesCount > 0)
