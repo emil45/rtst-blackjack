@@ -4,7 +4,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
 
     $scope.dealFirstTimeForAdvice = false;
-    $scope.clickedCard = "";
+    $scope.clickedCard = NaN;
     $scope.manualMode = false;
     $scope.showAdvice = false;
     $scope.splitCards = false;
@@ -76,7 +76,9 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
     $scope.surrender = function () {
         Materialize.toast('Only chickens Surrender', 4000);
-        dealerHitCard();
+        if ($scope.dealer.hands[0].numOfCards() == 1 && $scope.dealer.hands[0].cards[0].hide == false ) {
+            dealerHitCard();
+        }
         playerLost();
     };
 
@@ -131,7 +133,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         }
         else {
             if ($scope.dealer.hands[0].hasHiddenCard()) {
-                Materialize.toast("You already have a card, you greedy", 4000);
+                Materialize.toast("You already have a card, greedy bastard", 4000);
             }
             else {
                 $scope.dealer.hands[0].take($scope.deck.getFakeCard(), true);
@@ -143,8 +145,8 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             $scope.player.hands[0].take($scope.deck.popCard());
         }
         else {
-            if ($scope.player.hands[0].hasHiddenCard() && $scope.player.hands.numOfCards() >= 2) {
-                Materialize.toast("You already have a card, you greedy", 4000);
+            if ($scope.player.hands[0].hasHiddenCard() && $scope.player.hands[0].numOfCards() >= 2) {
+                Materialize.toast("You already have a card, greedy bastard", 4000);
             }
             else {
                 $scope.player.hands[0].take($scope.deck.getFakeCard(), true);
