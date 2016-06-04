@@ -4,8 +4,8 @@ BlackJack.factory('Hand', function () {
         this.cards = [];
     };
 
-    Hand.prototype.take = function (card, isHidden) {
-        if (isHidden == true)
+    Hand.prototype.take = function (card, hideCard) {
+        if (hideCard == true)
         {
             card.hideCard();
         }
