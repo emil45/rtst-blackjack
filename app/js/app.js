@@ -14,15 +14,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
     toastr.options = {
         "newestOnTop": true,
-        "positionClass": "toastr-bottom-center",
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": 5000,
-        "extendedTimeOut": 1000,
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
+        "positionClass": "toastr-bottom-center"
     };
 
     $scope.dealCards = function () {
@@ -51,7 +43,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.hitCardForPlayer = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            toastr.warning('There is a hidden card on table, flip it first please');
             return;
         }
         playerHitCard();
@@ -89,7 +81,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.stand = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            toastr.warning('There is a hidden card on table, flip it first please');
             return;
         }
         hitDealerCardsUntilDead()
@@ -98,7 +90,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.double = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            toastr.warning('There is a hidden card on table, flip it first please');
             return;
         }
         playerHitCard();
@@ -108,7 +100,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.surrender = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            toastr.warning('There is Hidden card on table, flip it first please');
+            toastr.warning('There is a hidden card on table, flip it first please');
             return;
         }
         if($scope.dealer.hands[0].cards[0].rank == 1)
