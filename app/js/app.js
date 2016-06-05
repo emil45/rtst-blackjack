@@ -102,7 +102,11 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             return;
         }
         playerHitCard();
-        $scope.doubleClicked = true;
+        if($scope.manualMode ==true)
+        {$scope.doubleClicked = true;}
+        else{
+            hitDealerCardsUntilDead();
+        }
     };
 
     $scope.surrender = function () {
