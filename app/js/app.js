@@ -2,7 +2,6 @@ var BlackJack = angular.module('ngBlackJack', []);
 
 BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTables) {
 
-
     $scope.dealFirstTimeForAdvice = false;
     $scope.clickedCard = NaN;
     $scope.manualMode = false;
@@ -27,6 +26,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.dealCards = function () {
+        $scope.doubleClicked = false;
         $scope.deck = new Deck($scope.numOfDecks);
         
         $scope.player.resetHand();
@@ -40,7 +40,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.showAdvice = true;
         $scope.startGame = true;
     };
-
     $scope.openRulesModal = function () {
         $("#rules").openModal();
     };
@@ -50,6 +49,11 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.hitCardForPlayer = function () {
+        if(isThereAnyHiddenCardsOnTable())
+        {
+            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            return;
+        }
         playerHitCard();
     };
 
@@ -71,32 +75,49 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         }
     };
 
-    $scope.stand = function () {
-
-        if($scope.manualMode)
-        {
-            if($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21)
-            {
-                dealerHitCard();
-            }
-        }
-        else {
+    function hitDealerCardsUntilDead() {
+        dealerHitCard();
+        //if sum of player is more than 21 after double and dealer takes card
+        //it's gonna be 2 losses - that why this if is here
+        if ($scope.player.hands[0].sum() > 21){return;}
+        while ($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21) {
             dealerHitCard();
-
-            while ($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21) {
-                dealerHitCard();
-            }
-            checkWinner();
         }
+        checkWinner();
+    }
+
+    $scope.stand = function () {
+        if(isThereAnyHiddenCardsOnTable())
+        {
+            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            return;
+        }
+        hitDealerCardsUntilDead()
     };
 
     $scope.double = function () {
+        if(isThereAnyHiddenCardsOnTable())
+        {
+            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            return;
+        }
         playerHitCard();
-        $scope.stand();
+        $scope.doubleClicked = true;
     };
 
     $scope.surrender = function () {
+        if(isThereAnyHiddenCardsOnTable())
+        {
+            toastr.warning('There is Hidden card on table, flip it first please');
+            return;
+        }
+        if($scope.dealer.hands[0].cards[0].rank == 1)
+        {
+            toastr.warning('You can\'t surrender if the dealer has an Ace, Be A Man For Once!');
+            return;
+        }
         toastr.error('Only chickens Surrender');
+
         if ($scope.dealer.hands[0].numOfCards() == 1 && $scope.dealer.hands[0].cards[0].hide == false ) {
             dealerHitCard();
         }
@@ -104,7 +125,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.toggleManualMode = function() {
-        console.log("hello")
+        console.log("hello");
         $scope.manualMode = !$scope.manualMode;
     };
 
@@ -129,7 +150,12 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.clickedCard = NaN;
         $("#dealerChooseCard").closeModal();
         $("#playerChooseCard").closeModal();
-
+        //if the double button clicked - we need to start deal cards to the dealer only after the card was flipped
+        //that's way this if is here ↓↓
+        if($scope.doubleClicked)
+        {
+            hitDealerCardsUntilDead();
+        }
     };
     
     $scope.hideCardOrShow = function (card) {
@@ -144,15 +170,13 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     {
         if(newSum > 21)
         {
-            console.log(newSum);
             playerLost();
         }
+        //BlackJack for Player ↓↓↓
         if(newSum == 21 && $scope.player.hands[0].numOfCards() == 2) {
             if ($scope.dealer.hands[0].sum() > 0) {
-                if ($scope.dealer.hands[0].cards[0].hide == false) {
                     $scope.dealer.hands[0].take($scope.deck.popCard());
                     playerWinsBlackJack();
-                }
             }
             else{ //sum == 0
                 $scope.dealer.hands[0].cards[0] = $scope.deck.popCard();
@@ -174,29 +198,20 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     function dealerHitCard() {
-        if ($scope.manualMode == false) {
+        if ($scope.manualMode == true && $scope.dealer.hands[0].numOfCards() == 0) {
+            $scope.dealer.hands[0].take($scope.deck.getFakeCard(), true);
+        }
+        else {
             $scope.dealer.hands[0].take($scope.deck.popCard());
         }
-        else {
-            if ($scope.dealer.hands[0].hasHiddenCard()) {
-                toastr.warning("You already have a card, greedy bastard");
-            }
-            else {
-                $scope.dealer.hands[0].take($scope.deck.getFakeCard(), true);
-            }
-        }
     }
+
     function playerHitCard() {
-        if ($scope.player.hands[0].hasHiddenCard() && $scope.player.hands[0].numOfCards() >= 2) {
-            toastr.warning("You already have a card, greedy bastard");
+        if ($scope.manualMode == false) {
+            $scope.player.hands[0].take($scope.deck.popCard());
         }
         else {
-            if ($scope.manualMode == false) {
-                $scope.player.hands[0].take($scope.deck.popCard());
-            }
-            else {
-                $scope.player.hands[0].take($scope.deck.getFakeCard(), true);
-            }
+            $scope.player.hands[0].take($scope.deck.getFakeCard(), true);
         }
     }
     function checkWinner() {
@@ -243,5 +258,11 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.player.winsHand();
         $scope.showAdvice = false;
         $scope.startGame = false;
+    }
+
+    function isThereAnyHiddenCardsOnTable()
+    {
+        return ($scope.player.hands[0].hasHiddenCard() ||$scope.dealer.hands[0].hasHiddenCard());
+
     }
 });
