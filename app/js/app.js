@@ -27,7 +27,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.showAdvice = true;
         $scope.startGame = true;
     };
-
     $scope.openRulesModal = function () {
         $("#rules").openModal();
     };
@@ -62,8 +61,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
         if($scope.manualMode)
         {
-            if($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21)
-            {
+            if($scope.dealer.hands[0].sum() < 17 && $scope.player.hands[0].sum() <= 21) {
                 dealerHitCard();
             }
         }
@@ -83,6 +81,11 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.surrender = function () {
+        if($scope.dealer.hands[0].cards[0].rank == 1)
+        {
+            Materialize.toast('You can\'t surrender if dealer has Ace.. Be A Man For Once!', 4000);
+            return;
+        }
         Materialize.toast('Only chickens Surrender', 4000);
         if ($scope.dealer.hands[0].numOfCards() == 1 && $scope.dealer.hands[0].cards[0].hide == false ) {
             dealerHitCard();
@@ -130,7 +133,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     {
         if(newSum > 21)
         {
-            console.log(newSum);
             playerLost();
         }
         if(newSum == 21 && $scope.player.hands[0].numOfCards() == 2) {
