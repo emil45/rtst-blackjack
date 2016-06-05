@@ -12,6 +12,19 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.player = new Player();
     $scope.dealer = new Player();
 
+    toastr.options = {
+        "newestOnTop": true,
+        "positionClass": "toastr-bottom-center",
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": 5000,
+        "extendedTimeOut": 1000,
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut",
+    };
+
     $scope.dealCards = function () {
         $scope.doubleClicked = false;
         $scope.deck = new Deck($scope.numOfDecks);
@@ -95,15 +108,16 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.surrender = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            toastr.warning('There is Hidden card on table, flip it first please');
             return;
         }
         if($scope.dealer.hands[0].cards[0].rank == 1)
         {
-            Materialize.toast('You can\'t surrender if dealer has Ace.. Be A Man For Once!', 4000);
+            toastr.warning('You can\'t surrender if the dealer has an Ace, Be A Man For Once!');
             return;
         }
-        Materialize.toast('Only chickens Surrender', 4000);
+        toastr.error('Only chickens Surrender');
+
         if ($scope.dealer.hands[0].numOfCards() == 1 && $scope.dealer.hands[0].cards[0].hide == false ) {
             dealerHitCard();
         }
@@ -111,6 +125,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.toggleManualMode = function() {
+        console.log("hello");
         $scope.manualMode = !$scope.manualMode;
     };
 
@@ -171,6 +186,16 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             }
         }
     });
+    
+    $scope.getWinRatio = function() {
+        var winRatio = (($scope.player.wins / ($scope.player.loses + $scope.player.wins)) * 100).toFixed(0);
+        if (isNaN(winRatio)) {
+            return 0;
+        }
+        else {
+            return winRatio + "%";
+        }
+    };
 
     function dealerHitCard() {
         if ($scope.manualMode == true && $scope.dealer.hands[0].numOfCards() == 0) {
@@ -180,6 +205,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             $scope.dealer.hands[0].take($scope.deck.popCard());
         }
     }
+
     function playerHitCard() {
         if ($scope.manualMode == false) {
             $scope.player.hands[0].take($scope.deck.popCard());
@@ -209,26 +235,26 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         else if($scope.dealer.hands[0].sum() == $scope.player.hands[0].sum())
         {
             // Tie
-            Materialize.toast("It's a tie baby", 4000);
+            toastr.info("It's a tie baby");
             $scope.showAdvice = false;
             $scope.startGame = false;
         }
     }
     function playerLost() {
-        Materialize.toast('You lost this one', 4000);
+        toastr.error('You lost this one');
         $scope.player.lostHand();
         $scope.showAdvice = false;
         $scope.startGame = false;
     }
 
     function playerWins() {
-        Materialize.toast('You won this round', 4000);
+        toastr.success("You Won This Round");
         $scope.player.winsHand();
         $scope.showAdvice = false;
         $scope.startGame = false;
     }
     function playerWinsBlackJack() {
-        Materialize.toast('you were born a winner.. BlackJack!', 4000);
+        toastr.success('You were born a winner, BlackJack!');
         $scope.player.winsHand();
         $scope.showAdvice = false;
         $scope.startGame = false;

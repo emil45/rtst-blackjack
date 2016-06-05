@@ -11,11 +11,13 @@
     <link rel="stylesheet" href="css/animate.css">
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/cards.css">
+    <link rel="stylesheet" href="css/toastr.min.css">
 
     <!-- JavaScript -->
     <script src="js/jquery/jquery-2.2.4.min.js"></script>
     <script src="js/materialize/materialize.min.js"></script>
     <script src="js/angular-1.5.6/angular.min.js"></script>
+    <script src="js/toastr.min.js"></script>
 
     <!-- JavaScript Custom -->
     <script src="js/app.js"></script>
@@ -35,9 +37,12 @@
                         <span class="lines"></span>
                     </a>
                 </div>
-                <div class="offset-l8 offset-m8 col l2 m2" ng-click="openTeamModal()">
+                <div class="offset-l1 offset-m1 col l6 m6 center-align">
+                    <span id="headline">Blackjack Strategies</span>
+                </div>
+                <div class="offset-l1 offset-m1 col l2 m2 right-align" ng-click="openTeamModal()">
                     <a class="custom-button outline" href="#">
-                        The Team
+                        Article
                         <span class="lines"></span>
                     </a>
                 </div>
@@ -48,11 +53,13 @@
             <div class="row">
                 <div class="col l3 m3 manual-mode-box">
                     <span class="manual-mode-text">Manual Mode: </span>
-                        <label class="manual-switch">
-                            <input type="checkbox" class="switch-input">
-                            <span class="switch-label" data-on="On" data-off="Off" ng-click="toggleManualMode()"></span>
-                            <span class="switch-handle"></span>
-                        </label>
+                        <div style="display: inline-block" ng-click="toggleManualMode()">
+                            <label class="manual-switch">
+                                <input type="checkbox" ng-checked="manualMode" class="switch-input">
+                                <span class="switch-label" data-on="On" data-off="Off"></span>
+                                <span class="switch-handle"></span>
+                            </label>
+                        </div>
                 </div>
                 <div class="offset-l1 col l6 offset-m1 m6 cards-rows" style="padding-top: 10px;">
                     <div>
@@ -142,11 +149,14 @@
                 <div>
                     <span>Loses: {{player.loses}}</span>
                 </div>
+                <div>
+                    <span>Wins Ratio: {{getWinRatio()}}</span>
+                </div>
                 <span class="lines"></span>
             </a>
         </div>
 
-        <div class="web-counter no-hover">
+        <div class="visitors no-hover">
             <a class="custom-button outline">
                 <div>
                     <span>Visitors</span>
@@ -162,11 +172,37 @@
         <div id="rules" class="modal">
             <div class="modal-content">
                 <h4>BlackJack Rules</h4>
-                <p>The game of blackjack or 21 is the most popular table game offered in casinos. If you are unfamiliar with the rules of casino blackjack or simply need some clarification on the finer points, you’ve come to the right place! I will tell you everything you need to know to play the game, and also explain the few rules that can differ from one casino to another.
-
-                    If you are new to casino table games, it can be a bit intimidating the first time that you sit down at a blackjack table. Everything seems to move so fast, and more importantly, everyone else sure seems to know what they are doing!
-
-                    Don’t worry. It’s really quite easy. Follow along, and you’ll know exactly what to expect at the table.</p>
+                <p>
+                    Dealer Hits Soft 17
+                    <br><br>
+                    Generally, the dealer in blackjack must hit if he has a total of 16 or less, and stand if he has 17 or more.
+                    <br><br>
+                    But at some games there is an exception when the dealer has a hand of “soft” 17.
+                    <br><br>
+                    If you look at the table, you will see one of two phrases on the felt:
+                    <br><br>
+                     Dealer Stands on All 17s: This is the simple version. The dealer will stand with any total of 17 or more, whether that total is
+                    <br><br>
+                    “soft” or not. (This rule is abbreviated S17. The S is for Stand, not Soft!)
+                    <br><br>
+                     Dealer Hits Soft 17: In casinos with this rule, the dealer will stand with any hard 17, but draw another card if he has a soft 17,
+                    <br><br>
+                    such as (Ace, 2, 4). (This rule is abbreviated H17.)
+                    <br><br>
+                    Seventeen is a weak hand, so if the dealer is allowed to try to improve the soft 17 hands, it makes the game tougher. When a dealer is
+                    <br><br>
+                    allowed to hit soft 17, it adds about 0.2% to the house advantage.
+                    <br><br>
+                    Years ago, the only “Hit Soft 17” games in the US were in and around Reno, Nevada. Almost all other areas used the better rule of standing
+                    <br><br>
+                    on all 17s. Over the years, more and more casinos have switched to hitting soft 17, and there are now far more H17 games than S17
+                    <br><br>
+                    games.
+                    <br><br>
+                    You can still find some games where the dealer stands on all 17s, even in casinos where some of the tables use
+                    <br><br>
+                    the H17 rule. Look around!
+                </p>
             </div>
             <div class="modal-footer">
                 <a class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
@@ -174,11 +210,29 @@
         </div>
         <div id="team" class="modal">
             <div class="modal-content">
-                <h4>Walla RTST</h4>
-                <p>Talk to me in passover</p>
+                <h4>Blackjack: the concept of expected value</h4>
+                <p>
+                    This article first appeared in the Nov/Dec 2010 issue of World Gaming magazine.
+                    <br><br>
+                    Our resident blackjack gurus explain EV, a fundamental gaming concept understood by all expert players.
+                    <br><br>
+                    In several of our prior articles we've mentioned the concept of expected value (EV), and said that we'd explain it more thoroughly in a later article. The time has come.
+                    <br><br>
+                    EV has lots of names: expectation, long-run expectation, LRE, fair value or expected value. Most people tend call it EV these days. EV isn't a concept unique to blackjack. You find it in poker, baccarat, craps and just about every casino (and some non-casino) games. You even find it in the imprecise world of professional sports betting. It is most useful in poker and blackjack – games where significant decisions need to be made mid-way through a hand. It's also useful in bet sizing for sports bets.
+                    <br><br><br><br>
+                    EV is best thought of as the "value right now" of something or making a particular decision. Let us give you an example. Let's say you place a bet on a Blackjack table for $1,000. As luck would have it you get dealt two picture cards for a total of 20, and the dealer has a 6 as his upcard. You're looking good! Of course you stand on your 20. What is this hand worth at this moment? If you suddenly had to sell this hand, before the dealer drew his cards, what would be the fair price? Of course you're not guaranteed to win $1,000, so the fair price has got to be less than $1,000, but how much less? $900? $800? Before you read on, think about it – would you sell the winnings of this hand to someone for a flat $800? Yes or no? Most people would answer no. 20 is a pretty good hand and the dealer only has a 6!
+                    <br><br>
+                    Obviously there are three possibilities here. The dealer could draw out to 21 and you unluckily lose, the dealer could draw out to 20 and you get a push (also known as a stand-off), or the dealer could get 19 or worse, and you win. I've run countless simulations and mathematical calculations on blackjack over more than 20 years, and I can tell you that when the dealer starts with a 6, he gets a 21 total 9.7% of the time, a 20 total 10.2% of the time, and 19 or worse the remaining 80.1% of the time. So back to our HK$1,000 bet. 80.1% of the time we win $1,000, 10.2% of the time we neither win nor lose, and 9.7% of the time we unluckily lose $1,000. The net result is that over very many hands, on average we win $704 for each time we get 20 against the dealer's 6 with a $1,000 bet out there. Another way of thinking of this is that the EV of this situation is +70.4%. So the fair price for this hand is $704 and if someone offered you $800 (plus the original $1,000 bet of course), then you should take the $1,800 and run! It's a $96 profit!
+                    <br><br><br><br>
+                    How is this number useful? Well, you can use it to calculate decisions. For example, some people like to split their tens when the dealer has a six. Many experienced players say they are crazy! Are they? Let's see. We've already established that standing on 20 against a 6 is worth +70.4%. What if we split? We'll have two hands of ten versus the dealer's 6. Calculating the value of that single ten card against the dealer's 6 is much more complicated than the example above, because you have to calculate the EVs of all the possible hands you could get when you hit the ten. It's far too complicated for this article, but trust us when we tell you we have crunched the numbers and it comes out that each ten, on its own, has an EV of +28.8%. Yes it's a positive number, but not so high really. Now remember if you split you will have two of these +28.8% tens, so which would you prefer? Two things worth +28.8 or one thing worth +70.4? Of course the one thing worth 70.4 is better, so it's better to stick with 20 than split the tens. Don't be greedy! (Or in fact, be greedy!) Actually it turns out that standing on 20 is better than splitting the tens against all ten possible dealer upcards (2, 3, 4, 5, 6, 7, 8, 9, 10 and Ace) so it's never correct to split tens (there is a very advanced exception to this rule but it doesn't really apply in Macau). So there you have it – those ten splitters are crazy after all.
+                    <br><br>
+                    You can use EV calculations like this to work out all sorts of blackjack decisions. For example, what about when you have 12 and the dealer has a 3? Some people say to stand and some people say to hit. Who is right? We can give you the answer, the people who say hit are right. Hitting the 12 has an EV of -23.3% and standing is -25.2%. Not much in it, and you expect to lose no matter what you do, but remember money saved is just as valuable as money won. Better to lose 23.3% than to lose 25.2%. I know this isn't much consolation when you hit the 12 and get a picture card and lose 100% of your bet! But it is a fact that in the long run you will be financially better off by hitting all your 12s against threes.
+                    <br><br>
+                    Now you understand the concept of EV better. It's a concept understood by all expert gamblers, no matter whether they are casino gamblers, sports bettors or poker players. You don't have to follow the decisions that EV tells you to make when you play, but I can assure you all the experts do.
+                </p>
             </div>
             <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Digger ...</a>
+                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Close</a>
             </div>
         </div>
 
@@ -208,7 +262,6 @@
                     </div>
                 </div>
             </div>
-        </div>z
-
+        </div>
     </body>
 </html>

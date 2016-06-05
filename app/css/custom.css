@@ -3,6 +3,43 @@ html {
     background-size: 100% 100%;
 }
 
+#headline, #headline:after {
+    font-weight: 900;
+    color: #efedce;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    letter-spacing: .1em;
+}
+
+#headline {
+    margin-top: -3%;
+    font-size: 53px;
+    z-index: 100;
+    text-shadow: .04em .04em 0 #9cb8b3;
+}
+
+#headline:after {
+    content: attr(data-shadow-text);
+    color: rgba(0,0,0,.35);
+    text-shadow: none;
+    position: absolute;
+    left: .0875em;
+    top: .0875em;
+    z-index: -1;
+    -webkit-mask-image: url(http://f.cl.ly/items/1t1C0W3y040g1J172r3h/mask.png);
+}
+
+/* Animate Background Image */
+@-webkit-keyframes aitf {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
 .cards-rows {
     height: 100px;
 }
@@ -106,7 +143,7 @@ html {
 
 .wins-loses {
     bottom: 5%;
-    right: 3%;
+    left: 3%;
     position: fixed;
 }
 
@@ -128,9 +165,9 @@ html {
     color: white;
 }
 
-.web-counter {
+.visitors {
     bottom: 5%;
-    left: 3%;
+    right: 3%;
     position: fixed;
 }
 
