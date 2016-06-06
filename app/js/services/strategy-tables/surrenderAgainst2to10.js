@@ -3,9 +3,9 @@ BlackJack.service('surrenderTables', function () {
     var hit = "Hit";
     var stand = "Stand";
     var split = "Split";
-    var doubleOtherwiseHit = "Double otherwise Hit";
-    var doubleOtherwiseStand = "Double otherwise stand";
-    var surrenderOtherwiseHit = "Surrender otherwise Hit";
+    var doubleOtherwiseHit = "Double.Hit";
+    var doubleOtherwiseStand = "Double.Stand";
+    var surrenderOtherwiseHit = "Surrender.Hit";
     //this offset tells up in what number the array starts
     //we need it when we gonna use data from array
     this.offsets = {
@@ -46,6 +46,7 @@ BlackJack.service('surrenderTables', function () {
         [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
 
     this.pairTable = [
+        [split, split, split, split, split, split, split, split, split, split],
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
         [hit, hit, split, split, split, split, hit, hit, hit, hit],
         [hit, hit, hit, hit, hit, hit, hit, hit, hit, hit],
@@ -54,6 +55,6 @@ BlackJack.service('surrenderTables', function () {
         [split, split, split, split, split, split, hit, hit, hit, hit],
         [split, split, split, split, split, split, split, split, split, split],
         [split, split, split, split, split, stand, split, split, stand, stand],
-        [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand],
-        [split, split, split, split, split, split, split, split, split, split]];
+        [stand, stand, stand, stand, stand, stand, stand, stand, stand, stand]];
+
 });
