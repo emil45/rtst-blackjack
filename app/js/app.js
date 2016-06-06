@@ -14,15 +14,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
     toastr.options = {
         "newestOnTop": true,
-        "positionClass": "toastr-bottom-center",
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": 5000,
-        "extendedTimeOut": 1000,
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut",
+        "positionClass": "toastr-bottom-center"
     };
 
     $scope.dealCards = function () {
@@ -51,7 +43,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.hitCardForPlayer = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            toastr.warning('There is a hidden card on table, flip it first please');
             return;
         }
         playerHitCard();
@@ -89,7 +81,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.stand = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            toastr.warning('There is a hidden card on the table, flip it first please');
             return;
         }
         hitDealerCardsUntilDead()
@@ -98,7 +90,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.double = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            Materialize.toast('There is Hidden card on table, flip it first please', 4000);
+            toastr.warning('There is a hidden card on the table, flip it first please');
             return;
         }
         playerHitCard();
@@ -112,7 +104,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.surrender = function () {
         if(isThereAnyHiddenCardsOnTable())
         {
-            toastr.warning('There is Hidden card on table, flip it first please');
+            toastr.warning('There is a hidden card on the table, flip it first please');
             return;
         }
         if($scope.dealer.hands[0].cards[0].rank == 1)
@@ -129,7 +121,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.toggleManualMode = function() {
-        console.log("hello");
         $scope.manualMode = !$scope.manualMode;
     };
 
@@ -218,6 +209,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             $scope.player.hands[0].take($scope.deck.getFakeCard(), true);
         }
     }
+    
     function checkWinner() {
         if($scope.player.hands[0].sum() > 21)
         {
@@ -244,6 +236,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             $scope.startGame = false;
         }
     }
+    
     function playerLost() {
         toastr.error('You lost this one');
         $scope.player.lostHand();
@@ -257,6 +250,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.showAdvice = false;
         $scope.startGame = false;
     }
+    
     function playerWinsBlackJack() {
         toastr.success('You were born a winner, BlackJack!');
         $scope.player.winsHand();

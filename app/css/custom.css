@@ -147,6 +147,20 @@ html {
     position: fixed;
 }
 
+#custom-footer {
+    color: white;
+    bottom: 0;
+    position: fixed;
+    width: 75%;
+    left: 50%;
+    margin-left: -37.5%;
+}
+
+#logo {
+    height: 44px;
+    width: 156px;
+}
+
 .no-hover {
     cursor: default;
 }
