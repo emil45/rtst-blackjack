@@ -17,16 +17,20 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         "positionClass": "toastr-bottom-center"
     };
 
-    $scope.dealCards = function () {
-        $scope.doubleClicked = false;
-        $scope.deck = new Deck($scope.numOfDecks);
-        
+    function resetHandsAndDealCards() {
         $scope.player.resetHand();
         $scope.dealer.resetHand();
 
         playerHitCard();
         playerHitCard();
         dealerHitCard();
+    }
+
+    $scope.dealCards = function () {
+        $scope.doubleClicked = false;
+        $scope.deck = new Deck($scope.numOfDecks);
+        
+        resetHandsAndDealCards();
 
         $scope.dealFirstTimeForAdvice = true;
         $scope.showAdvice = true;
@@ -50,7 +54,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
 
     $scope.getAdvice = function () {
-        if($scope.startGame == false  || $scope.dealer.hands[0].sum() == 0||($scope.player.hands[0].numOfCards()==2 && $scope.player.hands[0].hasHiddenCard())){return;}
+        if($scope.startGame == false  || isThereAnyHiddenCardsOnTable()){return;}
         if($scope.player.hands[0].sum() > 21)
             return;
         var advice;
@@ -125,7 +129,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         }
         toastr.error('Only chickens Surrender');
 
-        if ($scope.dealer.hands[0].numOfCards() == 1 && $scope.dealer.hands[0].cards[0].hide == false ) {
+        if ($scope.dealer.hands[0].numOfCards() == 1) {
             dealerHitCard();
         }
         playerLost();
@@ -172,26 +176,27 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         return classForDiv
     };
     
-    $scope.$watch('player.hands[0].sum()',function(newSum)
-    {
-        if(newSum > 21)
+    var disableSumWatch = $scope.$watch('player.hands[0].sum()',function(newSum)
         {
-            playerLost();
-        }
-        //BlackJack for Player ↓↓↓
-        if(newSum == 21 && $scope.player.hands[0].numOfCards() == 2) {
-            if ($scope.dealer.hands[0].sum() > 0) {
+            if(newSum > 21)
+            {
+                playerLost();
+            }
+            //BlackJack for Player ↓↓↓
+            if(newSum == 21 && $scope.player.hands[0].numOfCards() == 2) {
+                if ($scope.dealer.hands[0].sum() > 0) {
                     $scope.dealer.hands[0].take($scope.deck.popCard());
                     playerWinsBlackJack();
+                }
+                else{ //sum == 0
+                    $scope.dealer.hands[0].cards[0] = $scope.deck.popCard();
+                    $scope.dealer.hands[0].cards[0].showCard();
+                    $scope.dealer.hands[0].take($scope.deck.popCard());
+                    playerWinsBlackJack();
+                }
             }
-            else{ //sum == 0
-                $scope.dealer.hands[0].cards[0] = $scope.deck.popCard();
-                $scope.dealer.hands[0].cards[0].showCard();
-                $scope.dealer.hands[0].take($scope.deck.popCard());
-                playerWinsBlackJack();
-            }
-        }
-    });
+        });
+
     
     $scope.getWinRatio = function() {
         var winRatio = (($scope.player.wins / ($scope.player.loses + $scope.player.wins)) * 100).toFixed(0);
@@ -204,21 +209,40 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     };
     $scope.simulateGames = function(number) {
         $scope.manualMode = false;
-        for(var i=0;i<=number;i++)
-        {
+        disableSumWatch();
+        for (var i = 0; i < number; i++) {
+            $scope.startGame = true;
             $scope.deck = new Deck($scope.numOfDecks);
-
-            $scope.player.resetHand();
-            $scope.dealer.resetHand();
-
-            playerHitCard();
-            playerHitCard();
-            dealerHitCard();
-            
+            resetHandsAndDealCards();
+            while($scope.startGame ==true)
+            {
+                var advice = $scope.getAdvice();
+                if(advice == "Hit")
+                {
+                    $scope.hitCardForPlayer();
+                    if($scope.player.hands[0].sum() > 21)
+                    {
+                        playerLost();
+                    }
+                }
+                else if(advice == "Stand")
+                {
+                    $scope.stand();
+                }
+                else if(advice == "Double")
+                {
+                    $scope.double();
+                }
+                else if(advice == "Surrender")
+                {
+                    $scope.surrender();
+                }
+                else //split
+                {
+                    $scope.hitCardForPlayer();
+                }
+            }
         }
-        
-        
-
     };
 
     function hitDealerCardsUntilDead() {

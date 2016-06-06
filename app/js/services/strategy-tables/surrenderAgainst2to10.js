@@ -4,7 +4,7 @@ BlackJack.service('surrenderTables', function () {
     var stand = "Stand";
     var split = "Split";
     var doubleOtherwiseHit = "Double.Hit";
-    var doubleOtherwiseStand = "Double.stand";
+    var doubleOtherwiseStand = "Double.Stand";
     var surrenderOtherwiseHit = "Surrender.Hit";
     //this offset tells up in what number the array starts
     //we need it when we gonna use data from array
