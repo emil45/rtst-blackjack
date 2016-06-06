@@ -53,18 +53,30 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         if($scope.startGame == false  || $scope.dealer.hands[0].sum() == 0||($scope.player.hands[0].numOfCards()==2 && $scope.player.hands[0].hasHiddenCard())){return;}
         if($scope.player.hands[0].sum() > 21)
             return;
+        var advice;
         if($scope.player.hands[0].isPair())
         {
-            return surrenderTables.pairTable[$scope.player.hands[0].cards[0].realValue() - surrenderTables.offsets.pairTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
+            advice = surrenderTables.pairTable[$scope.player.hands[0].cards[0].realValue() - surrenderTables.offsets.pairTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
         }
-        if($scope.player.hands[0].isSoft())
+        else if($scope.player.hands[0].isSoft())
         {
-            return surrenderTables.softTable[$scope.player.hands[0].sum() - surrenderTables.offsets.softTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
+            advice = surrenderTables.softTable[$scope.player.hands[0].sum() - surrenderTables.offsets.softTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
         }
         else //hand is Hard
         {
-            return surrenderTables.hardTable[$scope.player.hands[0].sum() - surrenderTables.offsets.hardTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
+            advice = surrenderTables.hardTable[$scope.player.hands[0].sum() - surrenderTables.offsets.hardTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
         }
+        if(advice.includes('.')) {
+            if (isAnyActionWasPerformed()) {
+                //take the otherwise
+                advice = advice.split('.')[1];
+            }
+            else {
+                //take the first
+                advice = advice.split('.')[0];
+            }
+        }
+        return advice;
     };
 
     $scope.stand = function () {
@@ -190,6 +202,25 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             return winRatio + "%";
         }
     };
+    $scope.simulateGames = function(number) {
+        $scope.manualMode = false;
+        for(var i=0;i<=number;i++)
+        {
+            $scope.deck = new Deck($scope.numOfDecks);
+
+            $scope.player.resetHand();
+            $scope.dealer.resetHand();
+
+            playerHitCard();
+            playerHitCard();
+            dealerHitCard();
+            
+        }
+        
+        
+
+    };
+
     function hitDealerCardsUntilDead() {
         dealerHitCard();
         //if sum of player is more than 21 after double and dealer takes card
