@@ -1,4 +1,4 @@
-BlackJack.service('surrenderTables', function () {
+BlackJack.service('surrenderWithoutAce', function () {
 
     var hit = "Hit";
     var stand = "Stand";
