@@ -1,6 +1,6 @@
 var BlackJack = angular.module('ngBlackJack', []);
 
-BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTables) {
+BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender, surrenderWithAce, surrenderWithoutAce) {
 
     $scope.dealFirstTimeForAdvice = false;
     $scope.clickedCard = NaN;
@@ -11,6 +11,10 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
     $scope.numOfDecks = 4;
     $scope.player = new Player();
     $scope.dealer = new Player();
+    document.getElementById('badge3').innerHTML = 'keyboard_backspace';
+    document.getElementById('badge1').innerHTML = '';
+    document.getElementById('badge2').innerHTML = '';
+    $scope.blackjackTable = surrenderWithoutAce;
 
     toastr.options = {
         "newestOnTop": true,
@@ -60,15 +64,15 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         var advice;
         if($scope.player.hands[0].isPair())
         {
-            advice = surrenderTables.pairTable[$scope.player.hands[0].cards[0].realValue() - surrenderTables.offsets.pairTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
+            advice = $scope.blackjackTable.pairTable[$scope.player.hands[0].cards[0].realValue() - $scope.blackjackTable.offsets.pairTable][$scope.dealer.hands[0].sum() - $scope.blackjackTable.offsets.dealer];
         }
         else if($scope.player.hands[0].isSoft())
         {
-            advice = surrenderTables.softTable[$scope.player.hands[0].sum() - surrenderTables.offsets.softTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
+            advice = $scope.blackjackTable.softTable[$scope.player.hands[0].sum() - $scope.blackjackTable.offsets.softTable][$scope.dealer.hands[0].sum() - $scope.blackjackTable.offsets.dealer];
         }
         else //hand is Hard
         {
-            advice = surrenderTables.hardTable[$scope.player.hands[0].sum() - surrenderTables.offsets.hardTable][$scope.dealer.hands[0].sum() - surrenderTables.offsets.dealer];
+            advice = $scope.blackjackTable.hardTable[$scope.player.hands[0].sum() - $scope.blackjackTable.offsets.hardTable][$scope.dealer.hands[0].sum() - $scope.blackjackTable.offsets.dealer];
         }
         if(advice.includes('.')) {
             if (isAnyActionWasPerformed()) {
@@ -139,6 +143,34 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
         $scope.manualMode = !$scope.manualMode;
     };
 
+    $scope.toggleGameMode = function (chosenGameMode) {
+        switch (chosenGameMode) {
+            case 'noSurrender':
+                document.getElementById('badge1').innerHTML = 'keyboard_backspace';
+                document.getElementById('badge2').innerHTML = '';
+                document.getElementById('badge3').innerHTML = '';
+                $scope.blackjackTable = noSurrender;
+                break;
+            case 'surrenderWithAce':
+                document.getElementById('badge2').innerHTML = 'keyboard_backspace';
+                document.getElementById('badge1').innerHTML = '';
+                document.getElementById('badge3').innerHTML = '';
+                $scope.blackjackTable = surrenderWithAce;
+                break;
+            case 'surrenderWithoutAce':
+                document.getElementById('badge3').innerHTML = 'keyboard_backspace';
+                document.getElementById('badge1').innerHTML = '';
+                document.getElementById('badge2').innerHTML = '';
+                $scope.blackjackTable = surrenderWithoutAce;
+                break;
+            default:
+                document.getElementById('badge3').innerHTML = 'keyboard_backspace';
+                document.getElementById('badge1').innerHTML = '';
+                document.getElementById('badge2').innerHTML = '';
+                $scope.blackjackTable = surrenderWithoutAce;
+        }
+    };
+
     $scope.manualChooseCardForHiddenCard = function (card, whoPlaying) {
         if (card.isHidden()) {
             $scope.clickedCard = card;
@@ -199,7 +231,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
 
     
     $scope.getWinRatio = function() {
-        var winRatio = (($scope.player.wins / ($scope.player.loses + $scope.player.wins)) * 100).toFixed(0);
+        var winRatio = (($scope.player.wins / ($scope.player.loses + $scope.player.wins)) * 100).toFixed(1);
         if (isNaN(winRatio)) {
             return 0;
         }
@@ -207,14 +239,21 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
             return winRatio + "%";
         }
     };
+
+    $scope.openSimulateModal = function () {
+        $("#simulate").openModal();
+    };
+
     $scope.simulateGames = function(number) {
+        $("#simulate").closeModal();
+        var gamesToSimulate = parseInt(document.getElementById('simulateCount').getElementsByClassName('value')[0].innerHTML);
         $scope.manualMode = false;
         disableSumWatch();
-        for (var i = 0; i < number; i++) {
+        for (var i = 0; i < gamesToSimulate; i++) {
             $scope.startGame = true;
             $scope.deck = new Deck($scope.numOfDecks);
             resetHandsAndDealCards();
-            while($scope.startGame ==true)
+            while($scope.startGame == true)
             {
                 var advice = $scope.getAdvice();
                 if(advice == "Hit")
@@ -243,6 +282,8 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, surrenderTab
                 }
             }
         }
+        $scope.player.resetHand();
+        $scope.dealer.resetHand();
     };
 
     function hitDealerCardsUntilDead() {

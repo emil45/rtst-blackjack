@@ -74,7 +74,7 @@ html {
     color: white;
 }
 
-#deal {
+.deal {
     animation-duration: 1.5s;
     -vendor-animation-duration: 1.5s;
 }
@@ -188,4 +188,8 @@ html {
 .manual-card-modal-div {
     padding: 0 !important;
     width: 7.6% !important;
+}
+
+.game-mode-badge {
+    right: 0 !important;
 }

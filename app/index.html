@@ -25,7 +25,9 @@
     <script src="js/services/card.js"></script>
     <script src="js/services/deck.js"></script>
     <script src="js/services/player.js"></script>
-    <script src="js/services/strategy-tables/surrenderAgainst2to10.js"></script>
+    <script src="js/services/strategy-tables/noSurrender.js"></script>
+    <script src="js/services/strategy-tables/surrenderWithAce.js"></script>
+    <script src="js/services/strategy-tables/surrenderWithoutAce.js"></script>
 
 </head>
     <body ng-controller="ngGame">
@@ -53,11 +55,19 @@
             <div class="row">
                 <div class="col l3 m3 manual-mode-box">
                     <span class="manual-mode-text">Manual Mode: </span>
-                        <label class="manual-switch">
-                            <input type="checkbox" class="switch-input">
-                            <span class="switch-label" data-on="On" data-off="Off" ng-click="simulateGames(10)"></span>
-                            <span class="switch-handle"></span>
-                        </label>
+                    <label class="manual-switch">
+                        <input type="checkbox" class="switch-input">
+                        <span class="switch-label" data-on="On" data-off="Off" ng-click="toggleManualMode()"></span>
+                        <span class="switch-handle"></span>
+                    </label>
+                    <a class='dropdown-button btn red darken-3' data-activates='gameMode' style="margin-top: 10px;">Game Mode</a>
+                    <ul id='gameMode' class='dropdown-content'>
+                        <li><a ng-click="toggleGameMode('noSurrender')">No Surrender<span class="badge game-mode-badge"><i id="badge1" class="material-icons"></i></span></a></li>
+                        <li class="divider"></li>
+                        <li><a ng-click="toggleGameMode('surrenderWithAce')">Surrender With Ace<span class="badge game-mode-badge"><i id="badge2" class="material-icons"></i></span></a></li>
+                        <li class="divider"></li>
+                        <li><a ng-click="toggleGameMode('surrenderWithoutAce')">Surrender Without Ace<span class="badge game-mode-badge"><i id="badge3" class="material-icons"></i></span></a></li>
+                    </ul>
                 </div>
                 <div class="offset-l1 col l6 offset-m1 m6 cards-rows" style="padding-top: 10px;">
                     <div>
@@ -107,8 +117,11 @@
                 </div>
             </div>
             <div>
-                <div id="deal" class="row center animated pulse infinite" ng-hide="startGame">
+                <div class="row center animated pulse infinite deal" ng-hide="startGame">
                     <a class="waves-effet waves-light light-green darken-2 btn" ng-click="dealCards()">Deal</a>
+                </div>
+                <div class="row center animated pulse infinite deal" ng-hide="startGame">
+                    <a class="waves-effet waves-light pink darken-3 btn" ng-click="openSimulateModal()" >Simulate Games</a>
                 </div>
                 <div class="row center" ng-show="startGame">
                     <div id="top-icons" class="animated flipInX">
@@ -174,6 +187,21 @@
         </div>
 
         <!-- Modal Structure -->
+        <div id="simulate" class="modal">
+            <div class="modal-content">
+                <h4>Automatic Games Simulation</h4>
+                <h5>Games will simulate automatically using the advices</h5>
+                <div class="center-align">
+                    <p class="range-field" id="simulateCount">
+                        <input type="range" min="1" max="1000" />
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="simulateGames()">Simulate</a>
+            </div>
+        </div>
+
         <div id="rules" class="modal">
             <div class="modal-content">
                 <h4>BlackJack Rules</h4>
@@ -213,6 +241,7 @@
                 <a class="modal-action modal-close waves-effect waves-green btn-flat ">Agree</a>
             </div>
         </div>
+
         <div id="team" class="modal">
             <div class="modal-content">
                 <h4>Blackjack: the concept of expected value</h4>
