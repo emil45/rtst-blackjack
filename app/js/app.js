@@ -12,8 +12,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
     $scope.player = new Player();
     $scope.dealer = new Player();
     document.getElementById('badge3').innerHTML = 'keyboard_backspace';
-    document.getElementById('badge1').innerHTML = '';
-    document.getElementById('badge2').innerHTML = '';
     $scope.blackjackTable = surrenderWithoutAce;
 
     toastr.options = {
