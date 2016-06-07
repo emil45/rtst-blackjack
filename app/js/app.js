@@ -114,27 +114,32 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
     };
 
     $scope.surrender = function () {
-        if(isThereAnyHiddenCardsOnTable())
-        {
-            toastr.warning('There is a hidden card on the table, flip it first please');
-            return;
+        if ($scope.blackjackTable == noSurrender) {
+            toastr.warning('You can\'t surrender in this type of game mode');
         }
-        if(isAnyActionWasPerformed())
-        {
-            toastr.warning('you can\'t surrender after you hit.. you had your chance');
-            return;
-        }
-        if($scope.dealer.hands[0].cards[0].rank == 1)
-        {
-            toastr.warning('You can\'t surrender if the dealer has an Ace, Be A Man For Once!');
-            return;
-        }
-        toastr.error('Only chickens Surrender');
+        else {
+            if(isThereAnyHiddenCardsOnTable())
+            {
+                toastr.warning('There is a hidden card on the table, flip it first please');
+                return;
+            }
+            if(isAnyActionWasPerformed())
+            {
+                toastr.warning('You can\'t surrender after you hit, you had your chance');
+                return;
+            }
+            if($scope.dealer.hands[0].cards[0].rank == 1 && $scope.blackjackTable == surrenderWithoutAce)
+            {
+                toastr.warning('You can\'t surrender if the dealer has an Ace, Be A Man For Once!');
+                return;
+            }
+            toastr.error('Only chickens Surrender');
 
-        if ($scope.dealer.hands[0].numOfCards() == 1) {
-            dealerHitCard();
+            if ($scope.dealer.hands[0].numOfCards() == 1) {
+                dealerHitCard();
+            }
+            playerLost();
         }
-        playerLost();
     };
 
     $scope.toggleManualMode = function() {
