@@ -262,10 +262,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
                 if(advice == "Hit")
                 {
                     $scope.hitCardForPlayer();
-                    if($scope.player.hands[0].sum() > 21)
-                    {
-                        playerLost();
-                    }
                 }
                 else if(advice == "Stand")
                 {
@@ -282,6 +278,10 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
                 else //split
                 {
                     $scope.hitCardForPlayer();
+                }
+                if($scope.player.hands[0].sum() > 21)
+                {
+                    playerLost();
                 }
             }
         }
