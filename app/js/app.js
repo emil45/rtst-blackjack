@@ -13,6 +13,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
     $scope.dealer = new Player();
     document.getElementById('badge3').innerHTML = 'keyboard_backspace';
     $scope.blackjackTable = surrenderWithoutAce;
+    $scope.deck = new Deck($scope.numOfDecks);
 
     toastr.options = {
         "newestOnTop": true,
@@ -30,7 +31,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
 
     $scope.dealCards = function () {
         $scope.doubleClicked = false;
-        $scope.deck = new Deck($scope.numOfDecks);
+
         
         resetHandsAndDealCards();
 
@@ -252,9 +253,9 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         var gamesToSimulate = parseInt(document.getElementById('simulateCount').getElementsByClassName('value')[0].innerHTML);
         $scope.manualMode = false;
         disableSumWatch();
+        $scope.deck = new Deck($scope.numOfDecks);
         for (var i = 0; i < gamesToSimulate; i++) {
             $scope.startGame = true;
-            $scope.deck = new Deck($scope.numOfDecks);
             resetHandsAndDealCards();
             while($scope.startGame == true)
             {
