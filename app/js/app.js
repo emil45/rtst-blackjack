@@ -193,6 +193,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         $scope.clickedCard = NaN;
         $("#dealerChooseCard").closeModal();
         $("#playerChooseCard").closeModal();
+        checkPlayerHandStatusAfterATake();
         //if the double button clicked - we need to start deal cards to the dealer only after the card was flipped
         //that's way this if is here ↓↓
         if($scope.doubleClicked)
@@ -208,28 +209,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         }
         return classForDiv
     };
-    
-    var disableSumWatch = $scope.$watch('player.hands[0].sum()',function(newSum)
-        {
-            if(newSum > 21)
-            {
-                playerLost();
-            }
-            //BlackJack for Player ↓↓↓
-            if(newSum == 21 && $scope.player.hands[0].numOfCards() == 2) {
-                if ($scope.dealer.hands[0].sum() > 0) {
-                    $scope.dealer.hands[0].take($scope.deck.popCard());
-                    playerWinsBlackJack();
-                }
-                else{ //sum == 0
-                    $scope.dealer.hands[0].cards[0] = $scope.deck.popCard();
-                    $scope.dealer.hands[0].cards[0].showCard();
-                    $scope.dealer.hands[0].take($scope.deck.popCard());
-                    playerWinsBlackJack();
-                }
-            }
-        });
-
     
     $scope.getWinRatio = function() {
         var winRatio = (($scope.player.wins / ($scope.player.loses + $scope.player.wins)) * 100).toFixed(1);
@@ -249,7 +228,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         $("#simulate").closeModal();
         var gamesToSimulate = parseInt(document.getElementById('simulateCount').getElementsByClassName('value')[0].innerHTML);
         $scope.manualMode = false;
-        disableSumWatch();
         $scope.deck = new Deck($scope.numOfDecks);
         for (var i = 0; i < gamesToSimulate; i++) {
             $scope.startGame = true;
@@ -272,10 +250,6 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
                         break;
                     default: //split
                         $scope.hitCardForPlayer();
-                }
-                if($scope.player.hands[0].sum() > 21)
-                {
-                    playerLost();
                 }
             }
         }
@@ -309,6 +283,28 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         }
     }
 
+    function checkPlayerHandStatusAfterATake()
+    {
+        var playerSum = $scope.player.hands[0].sum();
+        if(playerSum>21)
+        {
+            playerLost();
+        }
+        //BlackJack for Player ↓↓↓
+        if (playerSum == 21 && $scope.player.hands[0].numOfCards() == 2) {
+            if ($scope.dealer.hands[0].sum() > 0) {
+                $scope.dealer.hands[0].take($scope.deck.popCard());
+                playerWinsBlackJack();
+            }
+            else { //sum == 0
+                $scope.dealer.hands[0].cards[0] = $scope.deck.popCard();
+                $scope.dealer.hands[0].cards[0].showCard();
+                $scope.dealer.hands[0].take($scope.deck.popCard());
+                playerWinsBlackJack();
+            }
+        }
+    }
+
     function playerHitCard() {
         if ($scope.manualMode == false) {
             $scope.player.hands[0].take($scope.deck.popCard());
@@ -316,6 +312,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         else {
             $scope.player.hands[0].take($scope.deck.getFakeCard(), true);
         }
+        checkPlayerHandStatusAfterATake();
     }
     
     function checkWinner() {

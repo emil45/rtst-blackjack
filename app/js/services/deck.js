@@ -53,8 +53,7 @@ BlackJack.factory('Deck', function (Card) {
     };
 
     Deck.prototype.getSpecificCardByRank = function (cardRank) {
-        var specificCard = new Card(cardRank, suits[0]);
-        return specificCard;
+        return new Card(cardRank, suits[0]);
     };
 
     return Deck;
