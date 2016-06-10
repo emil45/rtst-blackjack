@@ -9,4 +9,7 @@ There is a manual mode which give you the option to choose the cards of the play
 
 
 Try it, maybe you will win in your next visit in the casino.
+play now - http://bjack.tk
+
+
 
