@@ -193,7 +193,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         $scope.clickedCard = NaN;
         $("#dealerChooseCard").closeModal();
         $("#playerChooseCard").closeModal();
-        checkPlayerHandStatusAfterATake();
+        checkPlayerHandStatusAfterHit();
         //if the double button clicked - we need to start deal cards to the dealer only after the card was flipped
         //that's way this if is here ↓↓
         if($scope.doubleClicked)
@@ -283,7 +283,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         }
     }
 
-    function checkPlayerHandStatusAfterATake()
+    function checkPlayerHandStatusAfterHit()
     {
         var playerSum = $scope.player.hands[0].sum();
         if(playerSum>21)
@@ -312,7 +312,7 @@ BlackJack.controller('ngGame', function($scope, Card, Deck, Player, noSurrender,
         else {
             $scope.player.hands[0].take($scope.deck.getFakeCard(), true);
         }
-        checkPlayerHandStatusAfterATake();
+        checkPlayerHandStatusAfterHit();
     }
     
     function checkWinner() {
